@@ -34,6 +34,6 @@ jobs:
         env: 
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: Create Pull Request
-        run: gh pr create -B main -H design-token --title '[$NOW][feat] Format Design Token (global)' --body 'Transform global.json with Token Transformer'
+        run: gh pr create -B main -H design-token --title '[${{ steps.version.outputs.now }}][feat] Format Design Token (global)' --body 'Transform global.json with Token Transformer'
         env:
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
