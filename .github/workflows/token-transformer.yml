@@ -1,0 +1,38 @@
+name: Create PR from design to main
+
+# design 브랜치의 tokens.json 파일에 대한 push 감지
+on:
+  push:
+    branches:
+      - design-token
+    paths:
+      - 'packages/design-system/src/tokens/global.json'
+      
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Set Current Datetime
+        run: echo "NOW=$(date +'%Y.%m.%d:%H:%M')" >> $GITHUB_EN
+      # 디자인 파일 변환 후 생성된 파일도 push해서 main 브랜치로 병합하는 PR을 생성
+      - name: Run Token Transformer
+        run: |
+            npx token-transformer packages/design-system/src/tokens/global.json packages/design-system/src/tokens/transformed/core.json core --expandTypography=true --resolveReferences=true
+            npx token-transformer packages/design-system/src/tokens/global.json packages/design-system/src/tokens/transformed/light.json core,light core --expandTypography=true --resolveReferences=true
+            npx token-transformer packages/design-system/src/tokens/global.json packages/design-system/src/tokens/transformed/dark.json core,dark core --expandTypography=true --resolveReferences=true
+            npx token-transformer packages/design-system/src/tokens/global.json packages/design-system/src/tokens/transformed/theme.json core,theme core --expandTypography=true --resolveReferences=true
+            git config --global user.name "seungrodotlee" 
+            git config --global user.email "srlee0226w@gmail.com"
+            git add .
+            git commit -m '[$NOW][feat] Format Design Token (global)'
+            git push
+        env: 
+            GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Create Pull Request
+        run: gh pr create -B main -H design-token --title '[$NOW][feat] Format Design Token (global)' --body 'Transform global.json with Token Transformer'
+        env:
+            GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
