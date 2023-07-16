@@ -17,7 +17,8 @@ jobs:
         with:
           node-version: 16
       - name: Set Current Datetime
-        run: echo "NOW=$(date +'%Y.%m.%d:%H:%M')" >> $GITHUB_ENV
+        run: echo "now=$(date +'%Y.%m.%d:%H:%M')" >> $GITHUB_OUTPUT
+        id: version
       # 디자인 파일 변환 후 생성된 파일도 push해서 main 브랜치로 병합하는 PR을 생성
       - name: Run Token Transformer
         run: |
@@ -28,7 +29,7 @@ jobs:
             git config --global user.name "seungrodotlee" 
             git config --global user.email "srlee0226w@gmail.com"
             git add .
-            git commit -m '[$NOW][feat] Format Design Token (global)'
+            git commit -m '[${{ steps.version.outputs.now }}][feat] Format Design Token (global)'
             git push
         env: 
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
