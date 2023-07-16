@@ -459,6 +459,14 @@
         "value": "#702459",
         "type": "color"
       }
+    },
+    "primary": {
+      "value": "#000ce7",
+      "type": "color"
+    },
+    "secondary": {
+      "value": "#0dffa3",
+      "type": "color"
     }
   },
   "opacity": {
