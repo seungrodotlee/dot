@@ -14,9 +14,6 @@
       "configurations": {
         "production": {
           "devServerTarget": "docs:serve:production"
-        },
-        "ci": {
-          "devServerTarget": "docs:serve-static"
         }
       }
     },

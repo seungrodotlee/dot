@@ -59,6 +59,12 @@
         "style": "@emotion/styled",
         "linter": "eslint"
       }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
     }
   }
 }
