@@ -1,14 +1,11 @@
-import { ComponentPropsWith, forwardRef } from "react";
+import { forwardRef } from "react";
 
+import { refineProps } from "../../../../utils";
 
-type ModalBodyProps = ComponentPropsWith<"div">;
+import { ModalBodyProps } from "./modal.types";
 
-const Modal_Body = forwardRef<HTMLDivElement, ModalBodyProps>(
-  ({ css, ...props }, ref) => {
-    return (
-      <div ref={ref} css={[css]} {...props} />
-    );
-  },
-);
+const Modal_Body = forwardRef<HTMLDivElement, ModalBodyProps>((props, ref) => {
+  return <div ref={ref} {...refineProps(props)} />;
+});
 
 export default Modal_Body;

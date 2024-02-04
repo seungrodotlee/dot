@@ -1,14 +1,7 @@
 import { ComponentPropsWith, useMemo } from "react";
 
 import { graphql, navigate, useStaticQuery } from "gatsby";
-import {
-  map,
-  pipe,
-  prepend,
-  reduce,
-  split,
-  toArray,
-} from "@fxts/core";
+import { map, pipe, prepend, reduce, split, toArray } from "@fxts/core";
 import { P, match } from "ts-pattern";
 
 import { refineProps } from "../../../utils";
@@ -147,7 +140,7 @@ const getOrderedCategories =
     return pipe(index, map(categoriesMapper(accumulated)), toArray);
   };
 
-const SideBar = ({ css, ...props }: ComponentPropsWith<"div">) => {
+const SideBar = (props: ComponentPropsWith<"div">) => {
   const data = useStaticQuery<ContentsIndexQuery & ContentsQuery>(graphql`
     query {
       allYaml {
@@ -186,10 +179,7 @@ const SideBar = ({ css, ...props }: ComponentPropsWith<"div">) => {
   }, [data]);
 
   return (
-    <StyledSidebar.Root
-      css={css}
-      {...refineProps(props)}
-    >
+    <StyledSidebar.Root {...refineProps(props)}>
       <StyledSidebar.Body>
         <StyledSidebar.Logo />
         <StyledSidebar.Menus>

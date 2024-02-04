@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 
-
 import { OverlayContext } from "./overlay.context";
 
 export const useOverlay = <

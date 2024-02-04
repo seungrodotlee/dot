@@ -1,20 +1,26 @@
-import { ComponentPropsWith, forwardRef } from "react";
+import { forwardRef, useContext } from "react";
 
-import tw from "twin.macro";
+import { refineProps } from "../../../../utils";
 
-type ModalHeaderProps = ComponentPropsWith<"div", {
-  title: string;
-}>;
-
-const modalHeaderCSS = tw`flex justify-between`;
+import { StyledModal } from "./modal.styles";
+import { ModalHeaderProps } from "./modal.types";
+import ModalContext from "./modal.context";
 
 const Modal_Header = forwardRef<HTMLDivElement, ModalHeaderProps>(
-  ({ title, css, children, ...props }, ref) => {
+  ({ children, ...props }, ref) => {
+    const modalContext = useContext(ModalContext);
+
+    if (!modalContext) {
+      throw new Error("ModalContext에 값을 전달해주세요");
+    }
+
+    const { title } = modalContext;
+
     return (
-      <div ref={ref} css={[modalHeaderCSS, css]} {...props}>
+      <StyledModal.Header ref={ref} {...refineProps(props)}>
         <h1>{title}</h1>
         <div>{children}</div>
-      </div>
+      </StyledModal.Header>
     );
   },
 );

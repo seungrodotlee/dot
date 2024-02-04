@@ -10,11 +10,11 @@ import Header from "./header";
 import SideBar from "./side-bar.component";
 import StyledLayout from "./layout.styles";
 
-const MDXLayout = ({ children, css, ...props }: ComponentPropsWith<"div">) => {
+const MDXLayout = ({ children, ...props }: ComponentPropsWith<"div">) => {
   return (
     <>
       <GlobalStyles />
-      <StyledLayout.Root css={css} {...refineProps(props)}>
+      <StyledLayout.Root {...refineProps(props)}>
         <OverlayProvider>
           <SideBar />
           <StyledLayout.Main>

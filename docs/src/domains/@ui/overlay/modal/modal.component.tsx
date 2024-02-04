@@ -2,6 +2,7 @@ import "twin.macro";
 import { forwardRef } from "react";
 
 import useChild from "../../../@shared/use-child/use-child.hook";
+import { refineProps } from "../../../../utils";
 
 import { ModalProps } from "./modal.types";
 import ModalContext from "./modal.context";
@@ -10,7 +11,7 @@ import Modal_Body from "./modal-body.component";
 import Modal_Footer from "./modal-footer.component";
 
 const _Modal = forwardRef<HTMLDivElement, ModalProps>(
-  ({ onClose, onSubmit, children, css, ...props }, ref) => {
+  ({ title, onClose, onSubmit, children, ...props }, ref) => {
     const { getChild } = useChild(children);
 
     const head = getChild(Modal.Header);
@@ -20,11 +21,12 @@ const _Modal = forwardRef<HTMLDivElement, ModalProps>(
     return (
       <ModalContext.Provider
         value={{
+          title,
           onClose,
           onSubmit,
         }}
       >
-        <div ref={ref} css={css} {...props}>
+        <div ref={ref} {...refineProps(props)}>
           {head}
           {body}
           {footer}

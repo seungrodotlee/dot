@@ -1,6 +1,7 @@
 import { ComponentPropsWith, useEffect, useRef } from "react";
 
 import { useDynamicGeul } from "@dot/geul-react";
+import { refineProps } from "docs/src/utils";
 
 import { StyledLogo } from "./logo.styles";
 
@@ -24,7 +25,7 @@ const Logo = (props: ComponentPropsWith<"div">) => {
   }, [isRunning]);
 
   return (
-    <StyledLogo.Root {...props}>
+    <StyledLogo.Root {...refineProps(props)}>
       <p>&nbsp;</p>
       <StyledLogo.Title>{geul}</StyledLogo.Title>
     </StyledLogo.Root>

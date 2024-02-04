@@ -7,13 +7,7 @@ import {
   useState,
 } from "react";
 
-import {
-  append,
-  pipe,
-  split,
-  join,
-  filter,
-} from "@fxts/core";
+import { append, pipe, split, join, filter } from "@fxts/core";
 import { navigate } from "gatsby";
 import { match } from "ts-pattern";
 
@@ -24,10 +18,7 @@ import useChildProps from "../../../../@shared/use-child/use-child-props.hook";
 import createGhostComponent from "../../../../@shared/create-component/create-ghost-component.creator";
 
 import Collapsible_Details from "./collapsible-details.component";
-import {
-  collapsibleDetailsWrapStyle,
-  collapsibleHeadStyle,
-} from "./collapsible.styles";
+import { StyledCollapsible } from "./collapsible.styles";
 
 export const CollapsibleContext = createContext<boolean>(false);
 
@@ -64,12 +55,15 @@ const deleteFromOpenedMenus =
     return search;
   };
 
-type CollapsibleProps = ComponentPropsWith<"div", {
-  initialCollapsed?: boolean;
-}>;
+type CollapsibleProps = ComponentPropsWith<
+  "div",
+  {
+    initialCollapsed?: boolean;
+  }
+>;
 
 const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
-  ({ initialCollapsed, css, children, ...props }, ref) => {
+  ({ initialCollapsed, children, ...props }, ref) => {
     const [isCollapsed, setCollapsed] = useState<boolean>(
       initialCollapsed ?? true,
     );
@@ -112,16 +106,16 @@ const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
     }, [isCollapsed]);
 
     return (
-      <div ref={ref} css={css} {...refineProps(props)}>
-        <button css={collapsibleHeadStyle} onClick={headClickHandler}>
+      <div ref={ref} {...refineProps(props)}>
+        <StyledCollapsible.Head onClick={headClickHandler}>
           <Chevron direction={isCollapsed ? "bottom" : "top"} />
           <p>{head.children}</p>
-        </button>
-        <div css={collapsibleDetailsWrapStyle}>
+        </StyledCollapsible.Head>
+        <StyledCollapsible.Body>
           <CollapsibleContext.Provider value={isCollapsed}>
             {details}
           </CollapsibleContext.Provider>
-        </div>
+        </StyledCollapsible.Body>
       </div>
     );
   },

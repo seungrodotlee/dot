@@ -11,14 +11,17 @@ import {
 import { refineProps } from "../../../../../utils";
 
 import { CollapsibleContext } from "./collapsible.component";
-import { collapsibleDetailsCSS, collapsibleListCSS, collapsibleSizerCSS } from "./collapsible.styles";
+import { StyledCollapsible } from "./collapsible.styles";
 
-type CollapsibleDetailsProps = ComponentPropsWith<"div", {
-  isCollapsed?: boolean;
-}>;
+type CollapsibleDetailsProps = ComponentPropsWith<
+  "div",
+  {
+    isCollapsed?: boolean;
+  }
+>;
 
 const Collapsible_Details = forwardRef<HTMLDivElement, CollapsibleDetailsProps>(
-  ({ children, css: _css, ...props }, ref) => {
+  ({ children, ...props }, ref) => {
     const isCollapsed = useContext(CollapsibleContext);
     const [isAnimationInited, setAnimationInited] = useState<boolean>(false);
     const sizerRef = useRef<HTMLDivElement>(null);
@@ -32,20 +35,17 @@ const Collapsible_Details = forwardRef<HTMLDivElement, CollapsibleDetailsProps>(
     }, []);
 
     return (
-      <div
-        ref={ref}
-        {...refineProps(props)}
-        css={[collapsibleDetailsCSS, _css]}
-      >
-        <div
+      <StyledCollapsible.Details.Root ref={ref} {...refineProps(props)}>
+        <StyledCollapsible.Details.Sizer
+          height={height}
+          isAnimationInited={isAnimationInited}
           ref={sizerRef}
-          css={[
-            collapsibleSizerCSS(height, isAnimationInited),
-          ]}
         >
-          <ul css={collapsibleListCSS}>{children}</ul>
-        </div>
-      </div>
+          <StyledCollapsible.Details.List>
+            {children}
+          </StyledCollapsible.Details.List>
+        </StyledCollapsible.Details.Sizer>
+      </StyledCollapsible.Details.Root>
     );
   },
 );
