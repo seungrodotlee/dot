@@ -2,8 +2,8 @@ import { ComponentPropsWith } from "react";
 
 export type ModalProps = ComponentPropsWith<"div", {
   title: string;
-  onClose: () => void;
-  onSubmit: () => void;
+  onClose?: () => void;
+  onSubmit?: () => void;
 }>
 
 export type ModalHeaderProps = ComponentPropsWith<"div">;
