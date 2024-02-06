@@ -1,7 +1,8 @@
-import type { GatsbyConfig } from "gatsby";
 import dotenv from "dotenv";
 
 import algoliaQueries from "./src/utils/algolia-queries";
+
+import type { GatsbyConfig } from "gatsby";
 
 dotenv.config();
 

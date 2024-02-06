@@ -1,24 +1,40 @@
-import { Link } from "gatsby";
+import { useEffect, useState } from "react";
+
 import { FaGithub } from "react-icons/fa";
-import { RiSearch2Fill } from "react-icons/ri";
+import { DocSearch } from "@docsearch/react";
 
-import { useOverlay } from "../overlay/use-overlay.hook";
-
+import Logo from "./logo";
+import Labels from "./labels";
 import { StyledHeader } from "./header.styles";
 
 const Header = () => {
-  useOverlay("Search_Modal");
+  const [Label, setLabel] = useState<(...args: any) => JSX.Element>();
+  useEffect(() => {
+    const run = async () => {
+      setLabel(
+        Labels[
+          location.pathname.split("/")[1] as unknown as keyof typeof Labels
+        ],
+      );
+    };
+
+    run();
+  }, []);
 
   return (
     <StyledHeader.Root>
       <StyledHeader.Body>
-        <StyledHeader.Search>
-          <p>Search</p>
-          <RiSearch2Fill />
-        </StyledHeader.Search>
-        <Link to="/">
-          <FaGithub />
-        </Link>
+        <StyledHeader.Left>{Label ? <Label /> : <Logo />}</StyledHeader.Left>
+        <StyledHeader.Right>
+          <DocSearch
+            appId={process.env.GATSBY_APPLICATION_ID!}
+            indexName="Pages"
+            apiKey={process.env.GATSBY_API_KEY!}
+          />
+          <StyledHeader.Link to="/">
+            <FaGithub />
+          </StyledHeader.Link>
+        </StyledHeader.Right>
       </StyledHeader.Body>
     </StyledHeader.Root>
   );

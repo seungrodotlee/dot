@@ -4,7 +4,7 @@ import Logo from "./logo";
 
 const StyledSidebar = {
   Root: styled.div`
-    ${tw`min-w-[9rem] h-full p-2`}
+    ${tw`min-w-[9rem] h-full p-2 pr-6`}
   `,
   Body: styled.div`
     ${tw`h-full pl-4 pr-8 py-4 bg-neutral-100 rounded-sm`}
