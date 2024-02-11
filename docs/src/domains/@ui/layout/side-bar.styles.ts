@@ -1,17 +1,38 @@
-import tw, { styled } from "twin.macro";
+import { Link } from "gatsby";
+import tw, { css, styled } from "twin.macro";
+import isPropValid from "@emotion/is-prop-valid";
 
-import Logo from "./logo";
 
 const StyledSidebar = {
   Root: styled.div`
-    ${tw`min-w-[9rem] h-full p-2 pr-6`}
+    ${tw`min-w-[9rem] h-full p-4 pr-0`}
   `,
   Body: styled.div`
-    ${tw`h-full pl-4 pr-8 py-4 bg-neutral-100 rounded-sm`}
+    ${tw`h-full pl-4 pr-8 py-4 bg-neutral-100 border border-black border-r-0`}
   `,
-  Logo: styled(Logo)`${tw`mb-8`}`,
-  Menus: styled.div`${tw`text-neutral-500`}`,
-  Menu: styled.div`${tw`flex`}`,
+  LogoWrap: styled.div`${tw`h-9 flex items-center mb-8`}`,
+  Menu: styled.div
+  `${tw`flex`}`,
+  headerCSS: (active: boolean) => css`
+    ${tw`flex items-center`}
+
+    &::after {
+      content: "";
+      ${ active ? tw`flex` : tw`hidden` }
+      ${tw`w-2 h-2 bg-red-600 rounded-full ml-2`}
+    }
+  `,
+  Link: styled(Link, {
+    shouldForwardProp: prop => isPropValid(prop)
+  })<{ active?: boolean }>`
+    ${tw`flex items-center`}
+    ${({ active }) => active ? tw`font-bold` : ""}
+    &::after {
+      content: "";
+      ${({ active }) => active ? tw`flex` : tw`hidden`}
+      ${tw`w-2 h-2 bg-red-600 rounded-full ml-2`}
+    }
+  `,
   DotWrap: styled.div`${tw`flex justify-center items-center w-3 mr-2`}`,
   Dot: styled.div`${tw`w-1 h-1 rounded-full bg-neutral-300`}`
 }

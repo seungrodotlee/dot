@@ -59,11 +59,12 @@ type CollapsibleProps = ComponentPropsWith<
   "div",
   {
     initialCollapsed?: boolean;
+    onToggle?: (isOpened: boolean) => void;
   }
 >;
 
 const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
-  ({ initialCollapsed, children, ...props }, ref) => {
+  ({ initialCollapsed, children, onToggle, ...props }, ref) => {
     const [isCollapsed, setCollapsed] = useState<boolean>(
       initialCollapsed ?? true,
     );
@@ -90,6 +91,7 @@ const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
     }, [head]);
 
     useEffect(() => {
+      onToggle && onToggle(!isCollapsed);
       pipe(
         match({ isCollapsed, search: new URLSearchParams(location.search) })
           .with(
@@ -108,7 +110,9 @@ const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
     return (
       <div ref={ref} {...refineProps(props)}>
         <StyledCollapsible.Head onClick={headClickHandler}>
-          <Chevron direction={isCollapsed ? "bottom" : "top"} />
+          <div>
+            <Chevron direction={isCollapsed ? "bottom" : "top"} />
+          </div>
           <p>{head.children}</p>
         </StyledCollapsible.Head>
         <StyledCollapsible.Body>
@@ -121,8 +125,10 @@ const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
   },
 );
 
-type CollapsibleHeadProps = {
-  children: string;
+type CollapsibleHeadProps = Pick<
+  ComponentPropsWith<"div">,
+  "children" | "css"
+> & {
   to?: string;
 };
 

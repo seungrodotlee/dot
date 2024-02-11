@@ -1,8 +1,0 @@
-index:
-  - standalone: Hello, world!
-  - category: React
-    pages:
-      - useGeul
-  - category: Test
-    pages:
-      - useGeul

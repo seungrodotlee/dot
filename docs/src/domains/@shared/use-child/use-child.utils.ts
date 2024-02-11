@@ -1,5 +1,6 @@
-import { filter, find, pipe, tap, toArray } from "@fxts/core";
-import { Componentable, FC, ReactElement, ReactNode } from "react";
+import { Componentable, ReactElement, ReactNode } from "react";
+
+import { filter, find, pipe, toArray } from "@fxts/core";
 import { P, match } from "ts-pattern";
 
 export const childrenSelector =

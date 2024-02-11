@@ -9,14 +9,23 @@ import {
 
 import "twin.macro";
 
-import { Link, type HeadFC, type PageProps } from "gatsby";
+import { Link, type HeadFC } from "gatsby";
 import { useDynamicGeul } from "@dot/geul-react";
 import { delay } from "@fxts/core";
 
 import Layout from "../domains/@ui/layout/layout";
 import { StyledIndex } from "../styles/pages.styles";
 
-const IndexPage = (props: PageProps) => {
+const IndexPage = () => {
+  const {
+    geul: ing,
+    isRunning: isIngRunning,
+    run: runIng,
+  } = useDynamicGeul("", {
+    speed: 50,
+    decomposeOnBackspace: true,
+  });
+
   const {
     geul: wha,
     isRunning: isWhaRunning,
@@ -48,8 +57,8 @@ const IndexPage = (props: PageProps) => {
   const [transformed, setTransformed] = useState<boolean>(false);
 
   const isRunning = useMemo(
-    () => isWhaRunning || isAsyRunning || isEedRunning,
-    [isWhaRunning, isAsyRunning, isEedRunning],
+    () => isIngRunning || isWhaRunning || isAsyRunning || isEedRunning,
+    [isIngRunning, isWhaRunning, isAsyRunning, isEedRunning],
   );
 
   const mouseEnterHandler: MouseEventHandler<HTMLDivElement> =
@@ -74,10 +83,12 @@ const IndexPage = (props: PageProps) => {
 
   useEffect(() => {
     if (hovered.current) {
+      runIng("ING");
       runWha(" WHA");
       runAsy("ASY");
       runEed("EED ");
     } else {
+      runIng("");
       runWha("");
       runAsy("");
       runEed("");
@@ -93,6 +104,7 @@ const IndexPage = (props: PageProps) => {
           onMouseLeave={mouseLeaveHandler}
         >
           <span>DO</span>
+          <span>{ing}</span>
           <span>{wha}</span>
           <span>T U</span>
           <span className="trans-shrink">&nbsp;</span>
@@ -116,7 +128,7 @@ const IndexPage = (props: PageProps) => {
             우측에서 알아보고자 하는 기술스택을 선택해 탐색해보세요!
           </StyledIndex.Content>
           <StyledIndex.Links>
-            <Link to="/">Geul.js</Link>
+            <Link to="/geul-js">Geul.js</Link>
           </StyledIndex.Links>
         </StyledIndex.ContentWrap>
       </StyledIndex.Root>

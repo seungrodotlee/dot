@@ -1,0 +1,5 @@
+index:
+  - standalone: Geul.js
+  - category: React
+    pages:
+      - useGeul

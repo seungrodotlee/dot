@@ -2,7 +2,7 @@ import { StyledLogo } from "./logo.styles";
 
 const Logo = () => {
   return (
-    <StyledLogo.Root>
+    <StyledLogo.Root to="/">
       <StyledLogo.Dot />
       DOT
     </StyledLogo.Root>

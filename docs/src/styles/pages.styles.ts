@@ -4,14 +4,18 @@ import { utilStyles } from "./global.styles";
 
 export const StyledIndex = {
   Root: styled.div`
-    ${[tw`h-full border border-black`, utilStyles.flex.col, utilStyles.flex.center, utilStyles.font.bold, utilStyles.font["3xl"]]}
+    ${[tw`h-full`, utilStyles.flex.col, utilStyles.flex.center, utilStyles.font.bold, utilStyles.font["3xl"]]}
     & > div {
       ${tw`w-full`}
     }
   `,
   Title: styled.div<{ transformed: boolean }>`
-    ${[tw`p-4`, utilStyles.flex.center, utilStyles.font.black, utilStyles.font.size(12), utilStyles.decorate.underline]}
+    ${[tw`p-4 font-black border-b border-black`, utilStyles.flex.center, utilStyles.font.size(12)]}
     
+    &:hover {
+      ${tw`bg-black text-white`}
+    }
+
     & > * {
       pointer-events: none;
       white-space: pre;
@@ -40,6 +44,10 @@ export const StyledIndex = {
     ${tw`flex flex-col items-end min-w-[320px] border-l border-black`}
     & > a {
       ${tw`w-full px-4 py-2 border-b border-black`}
+
+      &:hover {
+        ${tw`bg-black text-white`}
+      }
     }
   `
 }

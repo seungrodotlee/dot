@@ -1,6 +1,6 @@
 import { ComponentPropsWith, useMemo } from "react";
 
-import { graphql, navigate, useStaticQuery } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import { map, pipe, prepend, reduce, split, toArray } from "@fxts/core";
 import { P, match } from "ts-pattern";
 
@@ -8,6 +8,7 @@ import { refineProps } from "../../../utils";
 import Collapsible from "../utils/molecule/collapsible/collapsible.component";
 
 import StyledSidebar from "./side-bar.styles";
+import Logo from "./logo";
 
 type RawIndex = {
   standalone: string | null;
@@ -33,7 +34,7 @@ type RawContent = {
   };
 };
 
-type ContentsQuery = {
+export type ContentsQuery = {
   allMdx: {
     nodes: RawContent[];
   };
@@ -110,6 +111,7 @@ const categoriesAccumulator = (
 
 const categoriesMapper =
   (accumulated: MappedCategories) => (standaloneOrCategory: RawIndex) => {
+    console.log(accumulated);
     return match(standaloneOrCategory)
       .returnType<Standalone | Category>()
       .with(
@@ -178,11 +180,15 @@ const SideBar = (props: ComponentPropsWith<"div">) => {
     );
   }, [data]);
 
+  const current = useMemo(() => location.pathname.replace(/\/$/, ""), []);
+
   return (
     <StyledSidebar.Root {...refineProps(props)}>
       <StyledSidebar.Body>
-        <StyledSidebar.Logo />
-        <StyledSidebar.Menus>
+        <StyledSidebar.LogoWrap>
+          <Logo />
+        </StyledSidebar.LogoWrap>
+        <div>
           {categories.map((standaloneOrCategory) =>
             match(standaloneOrCategory)
               .with(P.instanceOf(Standalone), ({ standalone }) => (
@@ -190,13 +196,12 @@ const SideBar = (props: ComponentPropsWith<"div">) => {
                   <StyledSidebar.DotWrap>
                     <StyledSidebar.Dot />
                   </StyledSidebar.DotWrap>
-                  <button
-                    onClick={() =>
-                      navigate(`${standalone.slug}/${location.search}`)
-                    }
+                  <StyledSidebar.Link
+                    active={standalone.slug === current}
+                    to={`${standalone.slug}/${location.search}`}
                   >
                     {standalone.title}
-                  </button>
+                  </StyledSidebar.Link>
                 </StyledSidebar.Menu>
               ))
               .otherwise(({ category, pages }) => (
@@ -205,19 +210,20 @@ const SideBar = (props: ComponentPropsWith<"div">) => {
                     <Collapsible.Header>{category}</Collapsible.Header>
                     <Collapsible.Details>
                       {pages.map(({ id, title, slug }) => (
-                        <button
+                        <StyledSidebar.Link
                           key={id}
-                          onClick={() => navigate(`${slug}/${location.search}`)}
+                          active={slug === current}
+                          to={`${slug}/${location.search}`}
                         >
                           {title}
-                        </button>
+                        </StyledSidebar.Link>
                       ))}
                     </Collapsible.Details>
                   </Collapsible>
                 </div>
               )),
           )}
-        </StyledSidebar.Menus>
+        </div>
       </StyledSidebar.Body>
     </StyledSidebar.Root>
   );

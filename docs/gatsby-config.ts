@@ -16,6 +16,7 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    'gatsby-plugin-react-helmet',
     "gatsby-plugin-postcss", 
     /* "gatsby-plugin-google-gtag",*/ 
     "gatsby-plugin-image", 
@@ -27,7 +28,19 @@ const config: GatsbyConfig = {
         "icon": "src/images/icon.png"
       }
     }, 
-    "gatsby-plugin-mdx", 
+    {
+      resolve: "gatsby-plugin-mdx",
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
+        ]
+      }
+    }, 
     "gatsby-plugin-sharp", 
     "gatsby-transformer-sharp", 
     {
@@ -64,7 +77,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         // name: "postsIndex",
-        path: "./content/",
+        path: "./src/content/",
       },
       // __key: "postsIndex"
     },
@@ -72,7 +85,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "posts",
-        path: "./content/posts",
+        path: "./src/content/posts",
       },
       __key: "posts"
     },

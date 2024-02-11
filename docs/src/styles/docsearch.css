@@ -1,0 +1,26 @@
+button.DocSearch.DocSearch-Button {
+  background: rgb(245 245 245);
+}
+
+button.DocSearch.DocSearch-Button:hover {
+  box-shadow: inset 0 0 0 2px black;
+}
+
+.DocSearch-Modal {
+  border-radius: 0;
+  border: 1px solid black;
+}
+
+.DocSearch-Form {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px black;
+}
+
+.DocSearch-Search-Icon path {
+  stroke: black;
+}
+
+.DocSearch-Footer {
+  box-shadow: 0;
+  border-top: 1px solid black;
+}

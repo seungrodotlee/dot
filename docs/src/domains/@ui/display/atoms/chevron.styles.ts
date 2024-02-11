@@ -5,7 +5,7 @@ const skewReverse = tw`-skew-y-[36deg]`;
 
 export const StyledChevron = {
   Root: styled.div<{ isBottom: boolean }>`
-    flex transition-all duration-300
+    ${tw`flex transition-all duration-300`}
     ${({ isBottom }) => isBottom ? tw`pt-1 pb-0` : tw`pt-0 pb-1`}
   `,
   Partition: styled.div<{ isReverse: boolean }>`

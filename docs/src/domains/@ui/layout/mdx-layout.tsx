@@ -1,8 +1,10 @@
 import { ComponentPropsWith } from "react";
+import { Helmet } from "react-helmet";
 
 import { MDXProvider } from "@mdx-js/react";
-import { GlobalStyles } from "twin.macro";
 import "@docsearch/css/dist/style.css";
+import { GlobalStyles } from "twin.macro";
+import { graphql } from "gatsby";
 
 import { refineProps } from "../../../utils";
 import OverlayProvider from "../overlay/overlay.provider";
@@ -10,22 +12,58 @@ import OverlayProvider from "../overlay/overlay.provider";
 import Header from "./header";
 import SideBar from "./side-bar.component";
 import StyledLayout from "./layout.styles";
+import { LayoutProvider } from "./layout.context";
 
-const MDXLayout = ({ children, ...props }: ComponentPropsWith<"div">) => {
+const MDXLayout = ({
+  data,
+  children,
+  ...props
+}: ComponentPropsWith<"div"> &
+  Record<
+    "data",
+    {
+      mdx: {
+        frontmatter: {
+          title: string;
+        };
+      };
+    }
+  >) => {
   return (
     <StyledLayout.Root {...refineProps(props)}>
+      <Helmet>
+        <title>{data.mdx.frontmatter.title}</title>
+      </Helmet>
       <GlobalStyles />
       <OverlayProvider>
-        <SideBar />
-        <StyledLayout.Main>
-          <Header />
-          <MDXProvider>
-            <div className="doc">{children}</div>
-          </MDXProvider>
-        </StyledLayout.Main>
+        <LayoutProvider
+          value={{
+            withoutSidebar: false,
+          }}
+        >
+          <SideBar />
+          <StyledLayout.Main>
+            <Header />
+            <StyledLayout.Content>
+              <MDXProvider>
+                <div className="doc">{children}</div>
+              </MDXProvider>
+            </StyledLayout.Content>
+          </StyledLayout.Main>
+        </LayoutProvider>
       </OverlayProvider>
     </StyledLayout.Root>
   );
 };
+
+export const query = graphql`
+  query ($id: String!) {
+    mdx(id: { eq: $id }) {
+      frontmatter {
+        title
+      }
+    }
+  }
+`;
 
 export default MDXLayout;

@@ -27,15 +27,20 @@
     "gatsby-plugin-manifest": "^5.13.1",
     "gatsby-plugin-mdx": "^5.13.1",
     "gatsby-plugin-postcss": "^6.13.1",
+    "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-plugin-sitemap": "^6.13.1",
     "gatsby-source-filesystem": "^5.13.1",
+    "gatsby-transformer-remark": "^6.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
     "gatsby-transformer-yaml": "^5.13.0",
+    "react-helmet": "^6.1.0",
     "react-instantsearch": "^7.5.3"
   },
   "devDependencies": {
-    "babel-preset-gatsby": "^3.13.1"
+    "@types/react-helmet": "^6.1.11",
+    "babel-preset-gatsby": "^3.13.1",
+    "gatsby-remark-images": "^7.13.1"
   },
   "babelMacros": {
     "twin": {
