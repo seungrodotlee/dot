@@ -3,3 +3,5 @@ index:
   - category: React
     pages:
       - useGeul
+      - useDynamicGeul
+      - useGeulPipe

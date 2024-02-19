@@ -4,6 +4,7 @@ import algoliaQueries from "./src/utils/algolia-queries";
 
 import type { GatsbyConfig } from "gatsby";
 
+
 dotenv.config();
 
 const config: GatsbyConfig = {
@@ -25,17 +26,20 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        "icon": "src/images/icon.png"
+        "icon": "src/content/images/icon.png"
       }
     }, 
     {
       resolve: "gatsby-plugin-mdx",
       options: {
         gatsbyRemarkPlugins: [
+          // remarkGfm,
+          "gatsby-remark-gifs",
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 1200,
+              
             },
           },
         ]
@@ -61,7 +65,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",
-        "path": "./src/images/"
+        "path": "./src/content/images/"
       },
       __key: "images"
     }, 

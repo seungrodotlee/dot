@@ -9,7 +9,7 @@ export const StyledChevron = {
     ${({ isBottom }) => isBottom ? tw`pt-1 pb-0` : tw`pt-0 pb-1`}
   `,
   Partition: styled.div<{ isReverse: boolean }>`
-    ${tw`w-1.5 h-0.5 bg-neutral-300 transition-all duration-300`}
+    ${tw`w-1.5 h-0.5 bg-[#32394d] transition-all duration-300`}
     ${({ isReverse }) => isReverse ? skewReverse : skew}
   `
 }

@@ -8,7 +8,7 @@ export const StyledCollapsible = {
     }
   `,
   Body: styled.div`${tw`
-    flex relative ml-[5px] pl-[5px] border-l-2 border-neutral-300
+    flex relative ml-[5px] pl-[5px] border-l-2 border-[#32394d]
   `}`,
   Details: {
     Root: styled.div`${tw`pl-2 overflow-hidden`}`,

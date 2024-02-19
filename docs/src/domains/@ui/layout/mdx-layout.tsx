@@ -8,11 +8,13 @@ import { graphql } from "gatsby";
 
 import { refineProps } from "../../../utils";
 import OverlayProvider from "../overlay/overlay.provider";
+import CodeBlock from "../render-mdx/code-block.component";
 
 import Header from "./header";
 import SideBar from "./side-bar.component";
 import StyledLayout from "./layout.styles";
 import { LayoutProvider } from "./layout.context";
+import "../../../styles/markdown.css";
 
 const MDXLayout = ({
   data,
@@ -45,7 +47,11 @@ const MDXLayout = ({
           <StyledLayout.Main>
             <Header />
             <StyledLayout.Content>
-              <MDXProvider>
+              <MDXProvider
+                components={{
+                  pre: CodeBlock,
+                }}
+              >
                 <div className="doc">{children}</div>
               </MDXProvider>
             </StyledLayout.Content>

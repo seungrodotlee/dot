@@ -7,4 +7,6 @@ body,
 #___gatsby,
 #gatsby-focus-wrapper {
   @apply w-full h-full;
+  background-color: #161a24;
+  color: white;
 }

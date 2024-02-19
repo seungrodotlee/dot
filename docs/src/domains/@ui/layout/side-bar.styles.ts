@@ -5,10 +5,10 @@ import isPropValid from "@emotion/is-prop-valid";
 
 const StyledSidebar = {
   Root: styled.div`
-    ${tw`min-w-[9rem] h-full p-4 pr-0`}
+    ${tw`h-full p-4 pr-0`}
   `,
   Body: styled.div`
-    ${tw`h-full pl-4 pr-8 py-4 bg-neutral-100 border border-black border-r-0`}
+    ${tw`h-full pl-4 pr-8 py-4 bg-[#161a24] border border-white border-r-0`}
   `,
   LogoWrap: styled.div`${tw`h-9 flex items-center mb-8`}`,
   Menu: styled.div
@@ -34,7 +34,7 @@ const StyledSidebar = {
     }
   `,
   DotWrap: styled.div`${tw`flex justify-center items-center w-3 mr-2`}`,
-  Dot: styled.div`${tw`w-1 h-1 rounded-full bg-neutral-300`}`
+  Dot: styled.div`${tw`w-1 h-1 mx-1 rounded-full bg-[#32394d]`}`
 }
 
 export default StyledSidebar;

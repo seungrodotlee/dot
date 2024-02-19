@@ -7,7 +7,7 @@ const StyledLayout = {
     ${({ withoutSidebar }) => withoutSidebar ? tw`mx-4` : tw`mr-4`}
   `,
   Content: styled.div`
-    ${tw`grow border border-black mb-4`}
+    ${tw`grow border border-white mb-4 overflow-y-scroll`}
 
     & .doc {
       ${tw`px-4 py-8`}

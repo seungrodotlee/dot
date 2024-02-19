@@ -20,14 +20,14 @@ export const utilStyles = {
     thin: tw`font-light`
   },
   decorate: {
-    underline: tw`border-b border-black`,
+    underline: tw`border-b border-white`,
     divider: {
-      left: tw`border-l border-black`,
-      right: tw`border-r border-black`
+      left: tw`border-l border-white`,
+      right: tw`border-r border-white`
     }
   }
 }
 
 export const Styled = {
-  FlexCenter: styled.div`${utilStyles.flex.center}`
+  FlexCenter: styled.div`${utilStyles.flex.center}`,
 }

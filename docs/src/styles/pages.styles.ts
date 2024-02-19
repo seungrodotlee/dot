@@ -10,10 +10,10 @@ export const StyledIndex = {
     }
   `,
   Title: styled.div<{ transformed: boolean }>`
-    ${[tw`p-4 font-black border-b border-black`, utilStyles.flex.center, utilStyles.font.size(12)]}
+    ${[tw`p-4 font-black border-b border-white`, utilStyles.flex.center, utilStyles.font.size(12)]}
     
     &:hover {
-      ${tw`bg-black text-white`}
+      ${tw`bg-white text-[#0f1020]`}
     }
 
     & > * {
@@ -41,12 +41,12 @@ export const StyledIndex = {
     ${tw`grow w-full p-4`}
   `,
   Links: styled.div`
-    ${tw`flex flex-col items-end min-w-[320px] border-l border-black`}
+    ${tw`flex flex-col items-end min-w-[320px] border-l border-white`}
     & > a {
-      ${tw`w-full px-4 py-2 border-b border-black`}
+      ${tw`w-full px-4 py-2 border-b border-white`}
 
       &:hover {
-        ${tw`bg-black text-white`}
+        ${tw`bg-white text-[#0f1020]`}
       }
     }
   `
