@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { UseGeulPipeOptions, useGeulPipe } from "@dot/geul-react";
 
 const UseGeulPipeExample = ({
@@ -11,11 +9,14 @@ const UseGeulPipeExample = ({
   to: string[];
   options: UseGeulPipeOptions;
 }) => {
-  const { geul, next, reset } = useGeulPipe(to, { ...options, initial: from });
+  const { geul, isRunning, isEnded, next, reset } = useGeulPipe(to, {
+    ...options,
+    initial: from,
+  });
 
-  const clickHandler = useCallback(async () => {
-    next();
-  }, [reset, next]);
+  const clickHandler = async () => {
+    isEnded ? reset() : next();
+  };
 
   return (
     <div className="example">
@@ -36,8 +37,10 @@ const UseGeulPipeExample = ({
         - decomposeOnBackspace:
         <code>{"" + options.decomposeOnBackspace}</code>
       </p>
-      <p>result: {geul}</p>
-      <button onClick={clickHandler}>run</button>
+      <p className="result">result: {geul}</p>
+      <button onClick={clickHandler} disabled={isRunning}>
+        {isEnded ? "reset" : "run"}
+      </button>
     </div>
   );
 };

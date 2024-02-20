@@ -1,21 +1,23 @@
-import { useCallback } from "react";
+import { useState } from "react";
 
 import { UseGeulOptions, useGeul } from "@dot/geul-react";
-import { delay } from "@fxts/core";
 
 const UseGeulExample = ({
   from,
   to,
   options,
 }: Record<"from" | "to", string> & Record<"options", UseGeulOptions>) => {
-  const { geul, run, reset } = useGeul(to, { ...options, initial: from });
+  const { geul, isRunning, run, reset } = useGeul(to, {
+    ...options,
+    initial: from,
+  });
 
-  const clickHandler = useCallback(async () => {
-    run(async () => {
-      await delay(3000);
-      reset();
-    });
-  }, [reset, run]);
+  const [isFired, setFired] = useState<boolean>(false);
+
+  const clickHandler = async () => {
+    isFired ? reset() : run();
+    setFired((isFired) => !isFired);
+  };
 
   return (
     <div className="example">
@@ -37,7 +39,9 @@ const UseGeulExample = ({
         <code>{"" + options.decomposeOnBackspace}</code>
       </p>
       <p className="result">result: {geul}</p>
-      <button onClick={clickHandler}>run</button>
+      <button onClick={clickHandler} disabled={isRunning}>
+        {isFired ? "reset" : "run"}
+      </button>
     </div>
   );
 };

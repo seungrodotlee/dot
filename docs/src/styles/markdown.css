@@ -1171,6 +1171,13 @@
   line-height: 1;
 }
 
+.doc .example input {
+  background-color: transparent;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 2px solid white;
+}
+
 .doc .example .result {
   font-weight: 700;
   background-color: #e6edf3;
@@ -1184,4 +1191,8 @@
   background-color: #00ad2b;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
+}
+
+.doc .example button[disabled] {
+  opacity: 0.4;
 }

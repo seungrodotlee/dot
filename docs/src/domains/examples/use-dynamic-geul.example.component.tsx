@@ -7,7 +7,7 @@ const UseDynamicGeulExample = ({
   options,
 }: Record<"from", string> & Record<"options", UseDynamicGeulOptions>) => {
   const [value, setValue] = useState<string>("안녕하세요");
-  const { geul, run, reset } = useDynamicGeul(from, { ...options });
+  const { geul, isRunning, run, reset } = useDynamicGeul(from, { ...options });
 
   const inputHandler = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => {
@@ -39,8 +39,10 @@ const UseDynamicGeulExample = ({
         - decomposeOnBackspace:
         <code>{"" + options.decomposeOnBackspace}</code>
       </p>
-      <p>result: {geul}</p>
-      <button onClick={clickHandler}>run</button>
+      <p className="result">result: {geul}</p>
+      <button onClick={clickHandler} disabled={isRunning || value === geul}>
+        run
+      </button>
     </div>
   );
 };
