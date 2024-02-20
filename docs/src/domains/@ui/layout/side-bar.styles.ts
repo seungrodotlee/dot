@@ -2,15 +2,19 @@ import { Link } from "gatsby";
 import tw, { css, styled } from "twin.macro";
 import isPropValid from "@emotion/is-prop-valid";
 
-
 const StyledSidebar = {
   Root: styled.div`
-    ${tw`h-full p-4 pr-0`}
+    ${tw`absolute lg:relative h-full p-4 pr-0 z-10`}
   `,
   Body: styled.div`
-    ${tw`h-full pl-4 pr-8 py-4 bg-[#161a24] border border-white border-r-0`}
+    ${tw`h-full pl-4 pr-8 py-4 bg-[#161a24] border border-white border-r lg:border-r-0`}
   `,
-  LogoWrap: styled.div`${tw`h-9 flex items-center mb-8`}`,
+  LogoWrap: styled.div`
+    ${tw`h-9 flex items-center justify-between mb-8`}
+    & button {
+      ${tw`text-xl`}
+    }
+  `,
   Menu: styled.div
   `${tw`flex`}`,
   headerCSS: (active: boolean) => css`

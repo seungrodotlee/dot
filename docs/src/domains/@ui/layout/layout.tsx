@@ -1,4 +1,4 @@
-import { ComponentPropsWith } from "react";
+import React, { ComponentPropsWith, useState } from "react";
 
 import { GlobalStyles } from "twin.macro";
 import "@docsearch/css/dist/style.css";
@@ -19,8 +19,14 @@ const Layout = ({
 }: ComponentPropsWith<"div"> & {
   withoutSidebar?: boolean;
 }) => {
+  const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
+
+  const toggleSidebar = (value: boolean) => () => {
+    setSidebarVisible(value);
+  };
+
   return (
-    <StyledLayout.Root {...refineProps(props)}>
+    <StyledLayout.Root sidebarVisible={sidebarVisible} {...refineProps(props)}>
       <GlobalStyles />
       <OverlayProvider>
         <LayoutProvider
@@ -28,9 +34,9 @@ const Layout = ({
             withoutSidebar,
           }}
         >
-          {!withoutSidebar && <SideBar />}
+          {!withoutSidebar && <SideBar onClose={toggleSidebar(false)} />}
           <StyledLayout.Main withoutSidebar={withoutSidebar}>
-            <Header />
+            <Header onMenuClick={toggleSidebar(true)} />
             <StyledLayout.Content>{children}</StyledLayout.Content>
           </StyledLayout.Main>
         </LayoutProvider>

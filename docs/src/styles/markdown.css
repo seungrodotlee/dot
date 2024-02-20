@@ -1196,3 +1196,29 @@
 .doc .example button[disabled] {
   opacity: 0.4;
 }
+
+@media (max-width: 1023px) {
+  .doc h1 {
+    font-size: 1.5em;
+  }
+
+  .doc h2 {
+    font-size: 1.3em;
+  }
+
+  .doc h3 {
+    font-size: 1.2em;
+  }
+
+  .doc h4 {
+    font-size: 1.1em;
+  }
+
+  .doc h5 {
+    font-size: 1em;
+  }
+
+  .doc {
+    font-size: 14px;
+  }
+}

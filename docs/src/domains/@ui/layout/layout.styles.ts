@@ -1,10 +1,15 @@
 import tw, { styled } from "twin.macro";
 
 const StyledLayout = {
-  Root: styled.div`${tw`flex w-full h-full`}`,
+  Root: styled.div<{ sidebarVisible: boolean }>`
+    ${tw`flex w-full h-full`}
+    & .sidebar {
+      ${({ sidebarVisible }) => sidebarVisible ? "" : tw`hidden lg:block`}
+    }
+  `,
   Main: styled.div<{ withoutSidebar?: boolean }>`
     ${tw`flex flex-col grow overflow-y-auto`}
-    ${({ withoutSidebar }) => withoutSidebar ? tw`mx-4` : tw`mr-4`}
+    ${({ withoutSidebar }) => withoutSidebar ? tw`mx-4` : tw`mx-4 lg:mr-4`}
   `,
   Content: styled.div`
     ${tw`grow border border-white mb-4 overflow-y-scroll`}

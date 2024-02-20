@@ -1,4 +1,4 @@
-import { ComponentPropsWith } from "react";
+import React, { ComponentPropsWith, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import { MDXProvider } from "@mdx-js/react";
@@ -31,8 +31,14 @@ const MDXLayout = ({
       };
     }
   >) => {
+  const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
+
+  const toggleSidebar = (value: boolean) => () => {
+    setSidebarVisible(value);
+  };
+
   return (
-    <StyledLayout.Root {...refineProps(props)}>
+    <StyledLayout.Root sidebarVisible={sidebarVisible} {...refineProps(props)}>
       <Helmet>
         <title>{data.mdx.frontmatter.title}</title>
       </Helmet>
@@ -43,9 +49,9 @@ const MDXLayout = ({
             withoutSidebar: false,
           }}
         >
-          <SideBar />
+          <SideBar onClose={toggleSidebar(false)} />
           <StyledLayout.Main>
-            <Header />
+            <Header onMenuClick={toggleSidebar(true)} />
             <StyledLayout.Content>
               <MDXProvider
                 components={{

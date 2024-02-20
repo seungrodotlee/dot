@@ -1,13 +1,15 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 
-import { FaGithub } from "react-icons/fa";
+import { FaBars, FaGithub } from "react-icons/fa";
 import { DocSearch } from "@docsearch/react";
 
 import Logo from "./logo";
 import Labels from "./labels";
 import { StyledHeader } from "./header.styles";
+import { LayoutContext } from "./layout.context";
 
-const Header = () => {
+const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
+  const { withoutSidebar } = useContext(LayoutContext);
   const label = useMemo(
     () => location.pathname.split("/")[1] as unknown as keyof typeof Labels,
     [],
@@ -17,7 +19,12 @@ const Header = () => {
     <StyledHeader.Root>
       <StyledHeader.Body>
         <StyledHeader.Left>
-          {label ? Labels[label]({}) : <Logo />}
+          {!withoutSidebar && (
+            <button onClick={onMenuClick}>
+              <FaBars />
+            </button>
+          )}
+          <div>{label ? Labels[label]({}) : <Logo />}</div>
         </StyledHeader.Left>
         <StyledHeader.Right>
           <DocSearch

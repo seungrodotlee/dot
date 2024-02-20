@@ -3,6 +3,7 @@ import { ComponentPropsWith, useMemo } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { map, pipe, prepend, reduce, split, toArray } from "@fxts/core";
 import { P, match } from "ts-pattern";
+import { FaArrowLeft } from "react-icons/fa";
 
 import { refineProps } from "../../../utils";
 import Collapsible from "../utils/molecule/collapsible/collapsible.component";
@@ -142,7 +143,12 @@ const getOrderedCategories =
     return pipe(index, map(categoriesMapper(accumulated)), toArray);
   };
 
-const SideBar = (props: ComponentPropsWith<"div">) => {
+const SideBar = ({
+  onClose,
+  ...props
+}: ComponentPropsWith<"div"> & {
+  onClose: () => void;
+}) => {
   const data = useStaticQuery<ContentsIndexQuery & ContentsQuery>(graphql`
     query {
       allYaml {
@@ -183,10 +189,13 @@ const SideBar = (props: ComponentPropsWith<"div">) => {
   const current = useMemo(() => location.pathname.replace(/\/$/, ""), []);
 
   return (
-    <StyledSidebar.Root {...refineProps(props)}>
+    <StyledSidebar.Root className="sidebar" {...refineProps(props)}>
       <StyledSidebar.Body>
         <StyledSidebar.LogoWrap>
           <Logo />
+          <button onClick={onClose}>
+            <FaArrowLeft />
+          </button>
         </StyledSidebar.LogoWrap>
         <div>
           {categories.map((standaloneOrCategory) =>

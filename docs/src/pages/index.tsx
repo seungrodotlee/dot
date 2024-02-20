@@ -103,21 +103,26 @@ const IndexPage = () => {
           onMouseEnter={mouseEnterHandler}
           onMouseLeave={mouseLeaveHandler}
         >
-          <span>DO</span>
-          <span>{ing}</span>
-          <span>{wha}</span>
-          <span>T U</span>
-          <span className="trans-shrink">&nbsp;</span>
-          <span>N</span>
-          <span>{eed}</span>
-          <span>I</span>
-          <span className="trans-hidden">S&nbsp;</span>
-          <span>VER</span>
-          <span className="trans-show">S</span>
-          <span className="trans-hidden">Y</span>
-          <span className="trans-hidden">&nbsp;</span>
-          <span>E</span>
-          <span>{asy}</span>
+          <div>
+            <span>DO</span>
+            <span>{ing}</span>
+            <span>{wha}</span>
+            <span>T </span>
+          </div>
+          <div>
+            <span>U</span>
+            <span className="trans-shrink">&nbsp;</span>
+            <span>N</span>
+            <span>{eed}</span>
+            <span>I</span>
+            <span className="trans-hidden">S&nbsp;</span>
+            <span>VER</span>
+            <span className="trans-show">S</span>
+            <span className="trans-hidden">Y</span>
+            <span className="trans-hidden">&nbsp;</span>
+            <span>E</span>
+            <span>{asy}</span>
+          </div>
         </StyledIndex.Title>
         <StyledIndex.ContentWrap>
           <StyledIndex.Content>
