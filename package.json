@@ -2,7 +2,9 @@
   "name": "dot",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "deploy:doc": "gh-pages -d dist"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -69,5 +71,6 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "homepage": "https://seungrodotlee.github.io/dot"
 }
