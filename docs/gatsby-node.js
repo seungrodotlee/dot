@@ -1,6 +1,8 @@
 const path = require("path");
 const fs = require("fs");
-const layout = path.resolve(`./src/domains/@ui/layout/mdx-layout.tsx`);
+const layout = path.resolve(
+  `./src/domains/@ui/layout/mdx-layout.component.tsx`,
+);
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;

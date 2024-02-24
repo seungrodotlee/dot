@@ -1,3 +1,6 @@
+.env
+.env.docsearch
+
 node_modules/
 .cache/
 public
