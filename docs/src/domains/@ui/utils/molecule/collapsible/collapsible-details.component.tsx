@@ -1,5 +1,4 @@
 import {
-  ComponentPropsWith,
   forwardRef,
   useContext,
   useEffect,
@@ -12,13 +11,7 @@ import { refineProps } from "../../../../../utils";
 
 import { CollapsibleContext } from "./collapsible.component";
 import { StyledCollapsible } from "./collapsible.styles";
-
-type CollapsibleDetailsProps = ComponentPropsWith<
-  "div",
-  {
-    isCollapsed?: boolean;
-  }
->;
+import { CollapsibleDetailsProps } from "./collapsible.types";
 
 const Collapsible_Details = forwardRef<HTMLDivElement, CollapsibleDetailsProps>(
   ({ children, ...props }, ref) => {

@@ -1,4 +1,4 @@
-import React, { ComponentPropsWith, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { GlobalStyles } from "twin.macro";
 import "@docsearch/css/dist/style.css";
@@ -7,23 +7,21 @@ import "../../../styles/docsearch.css";
 import { refineProps } from "../../../utils";
 import OverlayProvider from "../overlay/overlay.provider";
 
-import SideBar from "./side-bar.component";
-import Header from "./header";
+import Sidebar from "./sidebar/sidebar.component";
+import Header from "./header/header.component";
 import StyledLayout from "./layout.styles";
 import { LayoutProvider } from "./layout.context";
+import { LayoutProps } from "./layout.types";
 
-const Layout = ({
-  children,
-  withoutSidebar,
-  ...props
-}: ComponentPropsWith<"div"> & {
-  withoutSidebar?: boolean;
-}) => {
+const Layout = ({ children, withoutSidebar, ...props }: LayoutProps) => {
   const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
 
-  const toggleSidebar = (value: boolean) => () => {
-    setSidebarVisible(value);
-  };
+  const toggleSidebar = useCallback(
+    (value: boolean) => () => {
+      setSidebarVisible(value);
+    },
+    [],
+  );
 
   return (
     <StyledLayout.Root sidebarVisible={sidebarVisible} {...refineProps(props)}>
@@ -34,7 +32,7 @@ const Layout = ({
             withoutSidebar,
           }}
         >
-          {!withoutSidebar && <SideBar onClose={toggleSidebar(false)} />}
+          {!withoutSidebar && <Sidebar onClose={toggleSidebar(false)} />}
           <StyledLayout.Main withoutSidebar={withoutSidebar}>
             <Header onMenuClick={toggleSidebar(true)} />
             <StyledLayout.Content>{children}</StyledLayout.Content>

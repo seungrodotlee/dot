@@ -1,37 +1,15 @@
 {
-  "index_name": "gh",
-  "start_urls": ["https://trip-draw.github.io/"],
-  "sitemap_urls": ["https://trip-draw.github.io/sitemap.xml"],
+  "index_name": "Pages",
+  "sitemap_urls": ["https://seungrodotlee.github.io/dot/sitemap-index.xml"],
   "sitemap_alternate_links": true,
-  "stop_urls": ["/tests"],
+  "start_urls": ["https://seungrodotlee.github.io/dot"],
   "selectors": {
-    "lvl0": {
-      "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text() | //nav[contains(@class, 'navbar')]//a[contains(@class, 'navbar__link--active')]/text())[last()]",
-      "type": "xpath",
-      "global": true,
-      "default_value": "Documentation"
-    },
-    "lvl1": "header h1",
-    "lvl2": "article h2",
-    "lvl3": "article h3",
-    "lvl4": "article h4",
-    "lvl5": "article h5, article td:first-child",
-    "lvl6": "article h6",
-    "text": "article p, article li, article td:last-child"
-  },
-  "strip_chars": " .,;:#",
-  "custom_settings": {
-    "separatorsToIndex": "_",
-    "attributesForFaceting": ["language", "version", "type", "docusaurus_tag"],
-    "attributesToRetrieve": [
-      "hierarchy",
-      "content",
-      "anchor",
-      "url",
-      "url_without_anchor",
-      "type"
-    ]
-  },
-  "conversation_id": ["833762294"],
-  "nb_hits": 46250
+    "lvl0": ".doc h1",
+    "lvl1": ".doc h2",
+    "lvl2": ".doc h3",
+    "lvl3": ".doc h4",
+    "lvl4": ".doc h5",
+    "lvl5": ".doc h6",
+    "text": ".doc p,.doc ol"
+  }
 }

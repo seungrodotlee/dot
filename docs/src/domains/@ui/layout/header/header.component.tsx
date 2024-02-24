@@ -2,16 +2,19 @@ import { useContext, useMemo } from "react";
 
 import { FaBars, FaGithub } from "react-icons/fa";
 import { DocSearch } from "@docsearch/react";
+import { match } from "ts-pattern";
 
-import Logo from "./logo";
-import Labels from "./labels";
+import { isWindow } from "../../../../utils";
+import Logo from "../logo/logo.component";
+import { LayoutContext } from "../layout.context";
+import GeulLabel from "../labels/geul-label/geul-label.component";
+
 import { StyledHeader } from "./header.styles";
-import { LayoutContext } from "./layout.context";
 
 const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
   const { withoutSidebar } = useContext(LayoutContext);
   const label = useMemo(
-    () => location.pathname.split("/")[1] as unknown as keyof typeof Labels,
+    () => (isWindow() ? location.pathname.split("/")[1] : null),
     [],
   );
 
@@ -24,13 +27,19 @@ const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
               <FaBars />
             </button>
           )}
-          <div>{label ? Labels[label]({}) : <Logo />}</div>
+          <div>
+            {match(label)
+              .with("geul-js", () => <GeulLabel />)
+              .otherwise(() => (
+                <Logo />
+              ))}
+          </div>
         </StyledHeader.Left>
         <StyledHeader.Right>
           <DocSearch
             appId={process.env.GATSBY_APPLICATION_ID!}
-            indexName="Pages"
             apiKey={process.env.GATSBY_API_KEY!}
+            indexName="Pages"
           />
           <StyledHeader.Link to="/">
             <FaGithub />

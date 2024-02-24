@@ -2,17 +2,15 @@ import { ComponentProps, ReactElement } from "react";
 
 import { Highlight, themes } from "prism-react-renderer";
 
-const CodeBlock = ({ children }: ComponentProps<"pre">) => {
-  const className = (children as ReactElement)?.props?.className || "";
+const CodeBlock = ({ children: _children }: ComponentProps<"pre">) => {
+  const children = _children as ReactElement | undefined;
+  const className = children?.props?.className ?? "";
   const matches = className.match(/language-(?<lang>.*)/);
   const language = matches?.groups?.lang ?? "";
+  const code = children?.props?.children.trim();
 
   return (
-    <Highlight
-      theme={themes.palenight}
-      code={(children as ReactElement)?.props?.children.trim()}
-      language={language}
-    >
+    <Highlight theme={themes.palenight} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre style={style} className={className}>
           {tokens.map((line, i) => (

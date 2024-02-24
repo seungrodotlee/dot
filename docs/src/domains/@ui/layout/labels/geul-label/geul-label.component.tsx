@@ -2,7 +2,7 @@ import { ComponentPropsWith, useEffect, useRef } from "react";
 
 import { useDynamicGeul } from "@dot/geul-react";
 
-import { refineProps } from "../../../../utils";
+import { refineProps } from "../../../../../utils";
 
 import { StyledGeulLabel } from "./geul-label.styles";
 

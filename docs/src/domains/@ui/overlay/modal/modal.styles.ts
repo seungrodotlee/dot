@@ -1,5 +1,7 @@
 import tw, { styled } from "twin.macro";
 
+const Modal_Header = styled.div(tw`flex justify-between`);
+
 export const StyledModal = {
-  Header: styled.div`${tw`flex justify-between`}`
+  Header: Modal_Header,
 }

@@ -9,7 +9,7 @@ const StyledLayout = {
   `,
   Main: styled.div<{ withoutSidebar?: boolean }>`
     ${tw`flex flex-col grow overflow-y-auto`}
-    ${({ withoutSidebar }) => withoutSidebar ? tw`mx-4` : tw`mx-4 lg:mr-4`}
+    ${({ withoutSidebar }) => withoutSidebar ? tw`mx-4` : tw`mx-4 lg:ml-0 lg:mr-4`}
   `,
   Content: styled.div`
     ${tw`grow border border-white mb-4 overflow-y-scroll`}

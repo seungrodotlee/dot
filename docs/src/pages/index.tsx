@@ -13,7 +13,7 @@ import { Link, type HeadFC } from "gatsby";
 import { useDynamicGeul } from "@dot/geul-react";
 import { delay } from "@fxts/core";
 
-import Layout from "../domains/@ui/layout/layout";
+import Layout from "../domains/@ui/layout/layout.component";
 import { StyledIndex } from "../styles/pages.styles";
 
 const IndexPage = () => {

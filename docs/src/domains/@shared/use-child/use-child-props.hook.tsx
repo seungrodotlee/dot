@@ -6,7 +6,7 @@ import { childrenSelector } from "./use-child.utils";
 
 const useChildProps = (children: ReactNode, deps?: DependencyList) => {
   const getChildProps = useCallback(
-    (type: Componentable) => {
+    <C extends Componentable>(type: C): Parameters<C>[0] => {
       if (!children) return undefined;
 
       return pipe(type, childrenSelector(children), prop("props"));
@@ -15,7 +15,7 @@ const useChildProps = (children: ReactNode, deps?: DependencyList) => {
   );
 
   const getChildrenProps = useCallback(
-    (type: Componentable) => {
+    <C extends Componentable>(type: C): Parameters<C>[0] => {
       return pipe(
         type,
         childrenSelector(children, {

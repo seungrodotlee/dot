@@ -8,9 +8,10 @@ import type { GatsbyConfig } from "gatsby";
 dotenv.config();
 
 const config: GatsbyConfig = {
+  pathPrefix: "/dot",
   siteMetadata: {
     title: `Geul.js`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://seungrodotlee.github.io/dot/`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -50,8 +51,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-algolia`,
       options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        appId: process.env.GATSBY_APPLICATION_ID,
+        apiKey: process.env.GATSBY_API_KEY,
         queries: algoliaQueries
       },
     },
