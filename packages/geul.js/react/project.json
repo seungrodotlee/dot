@@ -17,7 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/geul.js/react"
+        "outputPath": "build/packages/geul.js/react"
       },
       "configurations": {
         "development": {
