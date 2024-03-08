@@ -1,7 +1,6 @@
 {
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "nxCloudAccessToken": "NjliYzYyN2MtYjljYy00OWRiLTliZDUtOTAxZjA5MjZmZTFjfHJlYWQtd3JpdGU=",
   "generators": {
     "@nx/react": {
       "application": {

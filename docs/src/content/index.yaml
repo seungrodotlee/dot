@@ -1,0 +1,7 @@
+index:
+  - standalone: Geul.js
+  - category: React
+    pages:
+      - useGeul
+      - useDynamicGeul
+      - useGeulPipe

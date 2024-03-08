@@ -1,0 +1,22 @@
+{
+  "name": "@d0t/geul-react",
+  "version": "0.0.3",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seungrodotlee/dot/tree/main/packages/geul.js/react"
+  },
+  "license": "MIT",
+  "keywords": [
+    "korean",
+    "typing"
+  ],
+  "homepage": "https://seungrodotlee.github.io/dot/geul-js/",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  }
+}

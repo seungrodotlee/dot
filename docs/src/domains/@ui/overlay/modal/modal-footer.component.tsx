@@ -1,12 +1,12 @@
-import { ComponentPropsWith, forwardRef } from "react";
+import { forwardRef } from "react";
 
-type ModalFooterProps = ComponentPropsWith<"div">;
+import { refineProps } from "../../../../utils";
+
+import { ModalFooterProps } from "./modal.types";
 
 const Modal_Footer = forwardRef<HTMLDivElement, ModalFooterProps>(
-  ({ css, ...props }, ref) => {
-    return (
-      <div ref={ref} css={[css]} {...props} />
-    );
+  (props, ref) => {
+    return <div ref={ref} {...refineProps(props)} />;
   },
 );
 

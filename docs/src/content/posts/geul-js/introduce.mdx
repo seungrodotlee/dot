@@ -1,0 +1,54 @@
+---
+title: Geul.js
+slug: /geul-js
+date: 2019-01-29
+---
+
+# Implement perfect typing effect in React with Geul.js!
+
+`Geul.js` is a library designed to easily implement
+the typing effect of Korean characters,
+where characters are decomposed into
+initial, medial, and final consonants
+as they are typed and then combined.
+
+```ts
+const Page = () => {
+  const { geul, run, reset } = useGeul("안녕하세요", {
+    initial: "",
+    speed: 50,
+  });
+
+  useEffect(() => {
+    run();
+  }, []);
+
+  return (
+    <div>{geul}</div>
+  );
+};
+```
+
+![Main Image](../../images/geul-js/head-motion.gif)
+
+# Install Geul.js for React
+
+Install via Package Manager
+
+```sh
+npm i @dot/react-geul
+```
+
+# Usage
+
+You can use `Geul.js` by import `@dot/react-geul` package and just simply call hooks. `@dot/react-geul` provides three types of hooks.
+
+- `useGeul`
+- `useDynamicGeul`
+- `useGeulPipe`
+
+# Geul.js for other frameworks (eg. `Vue.js`, `Svelte`)
+
+`Geul.js` have plan to support `Vue.js` and `Svelde`, and other frameworks,
+but not in the process of developing it yet.
+I will work on it quickly and release it soon.

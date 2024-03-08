@@ -1,0 +1,115 @@
+---
+title: React/useGeulPipe
+slug: /geul-js/react/use-geul-pipe
+date: 2023-02-19
+---
+
+# use-geul-pipe
+
+import UseGeulPipeExample from "../../../../domains/examples/use-geul-pipe.example.component";
+
+`use-geul-pipe` is hook for run typing effect with multiple values in order.
+
+```ts
+function useGeulPipe(
+  values: string[],
+  options: UseGeulPipeOptions,
+): UseGeulPipeReturn;
+```
+
+## `values`
+
+Values that will be sequential results of the typing effect.
+
+## `UseGeulPipeOptions`
+
+<table>
+  <thead>
+    <tr>
+      <th>option</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`speed`</td>
+      <td>`number`</td>
+      <td>Speed of typing effect (ms)</td>
+    </tr>
+    <tr>
+      <td>`decomposeOnBackspace`</td>
+      <td>`boolean | undefined`</td>
+      <td>
+        Whether to have the effect of separating consonants when backspace
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## `UseGeulPipeReturn`
+
+<table>
+  <thead>
+    <tr>
+      <th>member</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`geul`</td>
+      <td>`string`</td>
+      <td>Typed value</td>
+    </tr>
+    <tr>
+      <td>`isRunning`</td>
+      <td>`boolean`</td>
+      <td>Running status of the `geul` instance</td>
+    </tr>
+    <tr>
+      <td>`next`</td>
+      <td>`() => void`</td>
+      <td>funtion that start next typing effect</td>
+    </tr>
+    <tr>
+      <td>`reset`</td>
+      <td>`() => void`</td>
+      <td>funtion that reset typing effect</td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### `""` -> `"안녕"` -> `"안녕하세요"`
+
+<UseGeulPipeExample
+  from=""
+  to={["안녕", "안녕하세요"]}
+  options={{
+    speed: 50,
+  }}
+/>
+
+### `""` -> `"안녕하세요"` -> `"안녕"` (without `decomposeOnBackspace`)
+
+<UseGeulPipeExample
+  from=""
+  to={["안녕하세요", "안녕"]}
+  options={{
+    speed: 50,
+  }}
+/>
+
+### `""` -> `"안녕하세요"` -> `"안녕"` (with `decomposeOnBackspace`)
+
+<UseGeulPipeExample
+  from=""
+  to={["안녕하세요", "안녕"]}
+  options={{
+    speed: 50,
+    decomposeOnBackspace: true,
+  }}
+/>

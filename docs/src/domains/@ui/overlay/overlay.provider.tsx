@@ -1,18 +1,10 @@
 import { Fragment, ReactNode, useMemo, useState } from "react";
 
-import tw, { css } from "twin.macro";
 import { every, not } from "@fxts/core";
 
 import { OverlayContext } from "./overlay.context";
 import { Overlay } from "./overlay.type";
-
-const overlayCSS = css`
-  ${tw`fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-20 z-50`}
-
-  & > * {
-    ${tw`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
-  }
-`;
+import { StyledOverlay } from "./overlay.styles";
 
 const OverlayProvider = ({ children }: Record<"children", ReactNode>) => {
   const overlayState = useState<Overlay>({});
@@ -26,13 +18,13 @@ const OverlayProvider = ({ children }: Record<"children", ReactNode>) => {
     <OverlayContext.Provider value={overlayState}>
       {children}
       {overlayVisible && (
-        <div css={overlayCSS}>
+        <StyledOverlay.Root>
           {Object.entries(overlay)
             .filter(([_, { visible }]) => visible)
             .map(([key, { element }]) => (
               <Fragment key={key}>{element}</Fragment>
             ))}
-        </div>
+        </StyledOverlay.Root>
       )}
     </OverlayContext.Provider>
   );

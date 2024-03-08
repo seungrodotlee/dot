@@ -1,0 +1,15 @@
+{
+  "index_name": "Pages",
+  "sitemap_urls": ["https://seungrodotlee.github.io/dot/sitemap-index.xml"],
+  "sitemap_alternate_links": true,
+  "start_urls": ["https://seungrodotlee.github.io/dot"],
+  "selectors": {
+    "lvl0": ".doc h1 span",
+    "lvl1": ".doc h2",
+    "lvl2": ".doc h3",
+    "lvl3": ".doc h4",
+    "lvl4": ".doc h5",
+    "lvl5": ".doc h6",
+    "text": ".doc p,.doc ol"
+  }
+}

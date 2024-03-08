@@ -1,0 +1,103 @@
+---
+title: React/useDynamicGeul
+slug: /geul-js/react/use-dynamic-geul
+date: 2023-01-29
+---
+
+# use-dynamic-geul
+
+import UseDynamicGeulExample from "../../../../domains/examples/use-dynamic-geul.example.component";
+
+`use-dynamic-geul` is hook for easily run typing effect witih dynamic values.
+
+```ts
+function useDynamicGeul(
+  initial: string,
+  options: UseDynamicGeulOptions,
+): UseDynamicGeulReturn;
+```
+
+## `initial`
+
+Initial value that displayed before typing.
+
+## `UseDynamicGeulOptions`
+
+<table>
+  <thead>
+    <tr>
+      <th>option</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`speed`</td>
+      <td>`number`</td>
+      <td>Speed of typing effect (ms)</td>
+    </tr>
+    <tr>
+      <td>`decomposeOnBackspace`</td>
+      <td>`boolean | undefined`</td>
+      <td>
+        Whether to have the effect of separating consonants when backspace
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## `UseDynamicGeulReturn`
+
+<table>
+  <thead>
+    <tr>
+      <th>member</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`geul`</td>
+      <td>`string`</td>
+      <td>Typed value</td>
+    </tr>
+    <tr>
+      <td>`isRunning`</td>
+      <td>`boolean`</td>
+      <td>Running status of the `geul` instance</td>
+    </tr>
+    <tr>
+      <td>`run`</td>
+      <td>`(value: string) => void`</td>
+      <td>funtion that start typing effect with received `value`</td>
+    </tr>
+    <tr>
+      <td>`reset`</td>
+      <td>`() => void`</td>
+      <td>funtion that reset typing effect</td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### without `decomposeOnBackspace`
+
+<UseDynamicGeulExample
+  from=""
+  options={{
+    speed: 50,
+  }}
+/>
+
+### with `decomposeOnBackspace`
+
+<UseDynamicGeulExample
+  from=""
+  options={{
+    speed: 50,
+    decomposeOnBackspace: true,
+  }}
+/>

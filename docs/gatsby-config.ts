@@ -1,20 +1,24 @@
-import type { GatsbyConfig } from "gatsby";
 import dotenv from "dotenv";
 
 import algoliaQueries from "./src/utils/algolia-queries";
 
+import type { GatsbyConfig } from "gatsby";
+
+
 dotenv.config();
 
 const config: GatsbyConfig = {
+  pathPrefix: "/dot",
   siteMetadata: {
     title: `Geul.js`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://seungrodotlee.github.io/dot/`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    'gatsby-plugin-react-helmet',
     "gatsby-plugin-postcss", 
     /* "gatsby-plugin-google-gtag",*/ 
     "gatsby-plugin-image", 
@@ -23,17 +27,32 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        "icon": "src/images/icon.png"
+        "icon": "src/content/images/icon.png"
       }
     }, 
-    "gatsby-plugin-mdx", 
+    {
+      resolve: "gatsby-plugin-mdx",
+      options: {
+        gatsbyRemarkPlugins: [
+          // remarkGfm,
+          "gatsby-remark-gifs",
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+              
+            },
+          },
+        ]
+      }
+    }, 
     "gatsby-plugin-sharp", 
     "gatsby-transformer-sharp", 
     {
       resolve: `gatsby-plugin-algolia`,
       options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_ADMIN_KEY,
+        appId: process.env.GATSBY_APPLICATION_ID,
+        apiKey: process.env.GATSBY_API_KEY,
         queries: algoliaQueries
       },
     },
@@ -47,7 +66,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",
-        "path": "./src/images/"
+        "path": "./src/content/images/"
       },
       __key: "images"
     }, 
@@ -63,7 +82,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         // name: "postsIndex",
-        path: "./content/",
+        path: "./src/content/",
       },
       // __key: "postsIndex"
     },
@@ -71,7 +90,7 @@ const config: GatsbyConfig = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "posts",
-        path: "./content/posts",
+        path: "./src/content/posts",
       },
       __key: "posts"
     },

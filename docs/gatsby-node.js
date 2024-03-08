@@ -1,5 +1,8 @@
 const path = require("path");
-const layout = path.resolve(`./src/components/layout/mdx-layout.tsx`);
+const fs = require("fs");
+const layout = path.resolve(
+  `./src/domains/@ui/layout/mdx-layout.component.tsx`,
+);
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
@@ -48,6 +51,23 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       },
     },
   });
+};
+
+exports.onPostBuild = () => {
+  const exists = fs.existsSync(path.join(__dirname, "../dist"));
+  exists &&
+    fs.rmdirSync(path.join(__dirname, "../dist"), {
+      recursive: true,
+      force: true,
+    });
+  fs.renameSync(
+    path.join(__dirname, "public"),
+    path.join(__dirname, "../dist"),
+  );
+  // fs.renameSync(
+  //   path.join(__dirname, "public_dev"),
+  //   path.join(__dirname, "../dist_dev"),
+  // );
 };
 
 // exports.onCreateBabelConfig = ({ actions }) => {

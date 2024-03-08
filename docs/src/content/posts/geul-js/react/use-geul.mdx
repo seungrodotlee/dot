@@ -1,0 +1,131 @@
+---
+title: React/useGeul
+slug: /geul-js/react/use-geul
+date: 2023-01-29
+---
+
+# use-geul
+
+import UseGeulExample from "../../../../domains/examples/use-geul.example.component";
+
+`use-geul` is basic hook for run typing effect.
+
+```ts
+function useGeul(value: string, options: UseGeulOptions): UseGeulReturn;
+```
+
+## `value`
+
+Value that will be result of typing effect.
+
+## `UseGeulOptions`
+
+<table>
+  <thead>
+    <tr>
+      <th>option</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`speed`</td>
+      <td>`number`</td>
+      <td>Speed of typing effect (ms)</td>
+    </tr>
+    <tr>
+      <td>`initial`</td>
+      <td>`string | undefined`</td>
+      <td>Initial value that displayed before typing</td>
+    </tr>
+    <tr>
+      <td>`decomposeOnBackspace`</td>
+      <td>`boolean | undefined`</td>
+      <td>
+        Whether to have the effect of separating consonants when backspace
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## `UseGeulReturn`
+
+<table>
+  <thead>
+    <tr>
+      <th>member</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`geul`</td>
+      <td>`string`</td>
+      <td>Typed value</td>
+    </tr>
+    <tr>
+      <td>`isRunning`</td>
+      <td>`boolean`</td>
+      <td>Running status of the `geul` instance</td>
+    </tr>
+    <tr>
+      <td>`run`</td>
+      <td>`(onTypeEnd?: (() => void)) => void`</td>
+      <td>
+        funtion that start typing effect
+      </td>
+    </tr>
+    <tr>
+      <td>`reset`</td>
+      <td>`() => void`</td>
+      <td>
+        funtion that reset typing effect
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### `""` -> `"안녕하세요"`
+
+<UseGeulExample
+  from=""
+  to="안녕하세요"
+  options={{
+    speed: 50,
+  }}
+/>
+
+### `"안녕"` -> `"안녕하세요"`
+
+<UseGeulExample
+  from="안녕"
+  to="안녕하세요"
+  options={{
+    speed: 50,
+  }}
+/>
+
+### `"안녕하세요"` -> `""` (without `decomposeOnBackspace`)
+
+<UseGeulExample
+  from="안녕하세요"
+  to=""
+  options={{
+    speed: 50,
+  }}
+/>
+
+### `"안녕하세요"` -> `""` (with `decomposeOnBackspace`)
+
+<UseGeulExample
+  from="안녕하세요"
+  to=""
+  options={{
+    speed: 50,
+    decomposeOnBackspace: true,
+  }}
+/>

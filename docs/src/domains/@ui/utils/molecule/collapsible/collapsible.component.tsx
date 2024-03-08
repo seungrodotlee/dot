@@ -1,136 +1,63 @@
-import {
-  ComponentPropsWith,
-  createContext,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, forwardRef, useCallback, useEffect } from "react";
 
-import {
-  append,
-  pipe,
-  split,
-  join,
-  filter,
-} from "@fxts/core";
 import { navigate } from "gatsby";
-import { match } from "ts-pattern";
 
 import { refineProps } from "../../../../../utils";
-import Chevron from "../../../display/atoms/chevron";
+import Chevron from "../../../display/atoms/chevron.component";
 import useChild from "../../../../@shared/use-child/use-child.hook";
 import useChildProps from "../../../../@shared/use-child/use-child-props.hook";
 import createGhostComponent from "../../../../@shared/create-component/create-ghost-component.creator";
 
 import Collapsible_Details from "./collapsible-details.component";
-import {
-  collapsibleDetailsWrapStyle,
-  collapsibleHeadStyle,
-} from "./collapsible.styles";
+import { StyledCollapsible } from "./collapsible.styles";
+import { CollapsibleHeadProps, CollapsibleProps } from "./collapsible.types";
+import { useCollapsibleSearchQuery } from "./use-collapsible-search-query.hook";
+import { useCollapsible } from "./use-collapsible.hook";
 
 export const CollapsibleContext = createContext<boolean>(false);
 
-const getModifiedOpenedMenus = (
-  actor: (it: IterableIterator<string>) => IterableIterator<string>,
-  search: URLSearchParams,
-) => {
-  return pipe(search.get("openedMenus") || "", split(","), actor, join(","));
-};
-
-const appendToOpenedMenus =
-  (title: string) =>
-  ({ search }: Record<"search", URLSearchParams>) => {
-    search.set(
-      "openedMenus",
-      getModifiedOpenedMenus((menus) => append(title, menus), search),
-    );
-    return search;
-  };
-
-const deleteFromOpenedMenus =
-  (title: string) =>
-  ({ search }: Record<"search", URLSearchParams>) => {
-    pipe(
-      getModifiedOpenedMenus(
-        (menus) => filter((menu) => menu !== title, menus),
-        search,
-      ),
-      (updatedOpenedMenus) =>
-        updatedOpenedMenus === ""
-          ? search.delete("openedMenus")
-          : search.set("openedMenus", updatedOpenedMenus),
-    );
-    return search;
-  };
-
-type CollapsibleProps = ComponentPropsWith<"div", {
-  initialCollapsed?: boolean;
-}>;
-
 const _Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
-  ({ initialCollapsed, css, children, ...props }, ref) => {
-    const [isCollapsed, setCollapsed] = useState<boolean>(
-      initialCollapsed ?? true,
-    );
-
+  ({ initialCollapsed, children, onToggle, ...props }, ref) => {
     const { getChild } = useChild(children);
     const { getChildProps } = useChildProps(children);
 
-    const head = getChildProps(Collapsible.Header);
+    const headProps = getChildProps(Collapsible.Header);
 
     const details = getChild(Collapsible.Details);
 
-    const headClickHandler = useCallback(() => {
-      setCollapsed((prev) => !prev);
-      head.to && navigate(head.to);
-    }, []);
+    const { isCollapsed, toggleCollapsed } = useCollapsible({
+      initialCollapsed,
+      headProps,
+    });
+
+    useCollapsibleSearchQuery({ isCollapsed, headProps });
 
     useEffect(() => {
-      if (
-        new URLSearchParams(location.search)
-          .get("openedMenus")
-          ?.includes(head.children)
-      )
-        setCollapsed(false);
-    }, [head]);
-
-    useEffect(() => {
-      pipe(
-        match({ isCollapsed, search: new URLSearchParams(location.search) })
-          .with(
-            {
-              isCollapsed: false,
-            },
-            appendToOpenedMenus(head.children),
-          )
-          .otherwise(deleteFromOpenedMenus(head.children)),
-        (search) =>
-          location.search.replace("?", "") !== search.toString() &&
-          window.history.pushState(null, "", `?${search.toString()}`),
-      );
+      onToggle && onToggle(!isCollapsed);
     }, [isCollapsed]);
 
+    const headClickHandler = useCallback(() => {
+      toggleCollapsed();
+      headProps.to && navigate(headProps.to);
+    }, []);
+
     return (
-      <div ref={ref} css={css} {...refineProps(props)}>
-        <button css={collapsibleHeadStyle} onClick={headClickHandler}>
-          <Chevron direction={isCollapsed ? "bottom" : "top"} />
-          <p>{head.children}</p>
-        </button>
-        <div css={collapsibleDetailsWrapStyle}>
+      <div ref={ref} {...refineProps(props)}>
+        <StyledCollapsible.Head onClick={headClickHandler}>
+          <div>
+            <Chevron direction={isCollapsed ? "bottom" : "top"} />
+          </div>
+          <p>{headProps.children}</p>
+        </StyledCollapsible.Head>
+        <StyledCollapsible.Body>
           <CollapsibleContext.Provider value={isCollapsed}>
             {details}
           </CollapsibleContext.Provider>
-        </div>
+        </StyledCollapsible.Body>
       </div>
     );
   },
 );
-
-type CollapsibleHeadProps = {
-  children: string;
-  to?: string;
-};
 
 const Collapsible = Object.assign(_Collapsible, {
   Header: createGhostComponent<CollapsibleHeadProps>(),

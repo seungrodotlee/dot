@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { DependencyList, useEffect, useMemo, useRef, useState } from "react";
 
 import { UseGeulOptions } from "./use-geul";
 import { useDynamicGeul } from "./use-dynamic-geul";
@@ -8,6 +8,7 @@ export type UseGeulPipeOptions = UseGeulOptions;
 export const useGeulPipe = (
   values: string[],
   { speed, initial = "", decomposeOnBackspace }: UseGeulPipeOptions,
+  deps: DependencyList = []
 ) => {
   const [currentStep, setCurrentStep] = useState(-1);
   const currentStepRef = useRef(-1);
@@ -22,8 +23,10 @@ export const useGeulPipe = (
     decomposeOnBackspace,
   });
 
+  const isEnded = useMemo(() => currentStep + 1 === values.length, [currentStep, ...deps]);
+
   const next = () => {
-    if (currentStep + 1 === values.length) {
+    if (isEnded) {
       console.warn("Every geul steps already executed!");
       return;
     }
@@ -53,6 +56,7 @@ export const useGeulPipe = (
   return {
     geul,
     isRunning,
+    isEnded,
     next,
     reset,
   };

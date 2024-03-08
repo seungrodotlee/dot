@@ -1,30 +1,21 @@
-import {
-  Componentable,
-  DependencyList,
-  FC,
-  ForwardRefExoticComponent,
-  ReactNode,
-  useCallback,
-} from "react";
+import { Componentable, DependencyList, ReactNode, useCallback } from "react";
+
+import { map, pipe, prop, toArray } from "@fxts/core";
+
 import { childrenSelector } from "./use-child.utils";
-import { map, pipe, prop, tap, toArray } from "@fxts/core";
 
 const useChildProps = (children: ReactNode, deps?: DependencyList) => {
   const getChildProps = useCallback(
-    (type: Componentable) => {
+    <C extends Componentable>(type: C): Parameters<C>[0] => {
       if (!children) return undefined;
 
-      return pipe(
-        type,
-        childrenSelector(children),
-        prop("props"),
-      );
+      return pipe(type, childrenSelector(children), prop("props"));
     },
     [children, ...(deps ?? [])],
   );
 
   const getChildrenProps = useCallback(
-    (type: Componentable) => {
+    <C extends Componentable>(type: C): Parameters<C>[0] => {
       return pipe(
         type,
         childrenSelector(children, {

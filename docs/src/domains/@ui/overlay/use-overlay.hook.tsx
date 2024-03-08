@@ -1,17 +1,16 @@
 import {
+  Componentable,
   DependencyList,
-  FC,
   useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
 
-
 import { OverlayContext } from "./overlay.context";
 
 export const useOverlay = <
-  Comp extends FC,
+  Comp extends Componentable,
   Params extends Omit<Parameters<Comp>[0], "visible">,
 >(
   key: string,
