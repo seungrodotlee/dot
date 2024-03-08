@@ -16,10 +16,9 @@ const Heading = <E extends ElementType>({
 
   return createElement(StyledHeading.Root, {
     as,
-    id,
     children: (
       <>
-        {children}
+        <span id={id}>{children}</span>
         <StyledHeading.Hash href={`#${id}`}>#</StyledHeading.Hash>
       </>
     ),

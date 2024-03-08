@@ -14,7 +14,8 @@ import { StyledHeader } from "./header.styles";
 const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
   const { withoutSidebar } = useContext(LayoutContext);
   const label = useMemo(
-    () => (isWindow() ? location.pathname.split("/")[1] : null),
+    () =>
+      isWindow() ? location.pathname.replace(/^\/dot/, "").split("/")[1] : null,
     [],
   );
 
