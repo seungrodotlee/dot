@@ -18,15 +18,23 @@ import {
 import { useSidebarCategories } from "./use-sidebar-categories.hook";
 
 const Sidebar = ({ onClose, ...props }: SidebarProps) => {
+  const lib = useMemo(
+    () => (isWindow() ? location.pathname.split("/")[1] : null),
+    [],
+  );
+
   const data = useStaticQuery<ContentsIndexQuery & ContentsQuery>(graphql`
     query {
       allYaml {
         edges {
           node {
             index {
-              standalone
-              category
-              pages
+              lib
+              contents {
+                standalone
+                category
+                pages
+              }
             }
           }
         }
@@ -44,7 +52,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
     }
   `);
 
-  const categories = useSidebarCategories(data);
+  const categories = useSidebarCategories(data, lib);
 
   const current = useMemo(
     () => (isWindow() ? location.pathname.replace(/\/$/, "") : null),
@@ -61,7 +69,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
           </button>
         </StyledSidebar.LogoWrap>
         <div>
-          {categories.map((standaloneOrCategory) =>
+          {categories?.map((standaloneOrCategory) =>
             match(standaloneOrCategory)
               .with(P.instanceOf(Standalone), ({ standalone }) => (
                 <StyledSidebar.Menu key={standalone.title}>

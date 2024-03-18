@@ -1,9 +1,14 @@
 import { ComponentPropsWith } from "react";
 
+export type RawIndexContent = {
+    standalone: string | null;
+    category: string | null;
+    pages: string[] | null;
+  };
+
 export type RawIndex = {
-  standalone: string | null;
-  category: string | null;
-  pages: string[] | null;
+  lib: string;
+  contents: RawIndexContent[];
 };
 
 export type ContentsIndexQuery = {

@@ -1,7 +1,7 @@
 import { map, pipe, prepend, split, toArray } from "@fxts/core";
 import { P, match } from "ts-pattern";
 
-import { Category, MappedCategories, RawContent, RawIndex, Standalone } from "./sidebar.types";
+import { Category, MappedCategories, RawContent, RawIndex, RawIndexContent, Standalone } from "./sidebar.types";
 
 const splitIfSlashIncluded = (title: string) => {
   return match(title)
@@ -46,7 +46,7 @@ export const categoriesAccumulator = (
 };
 
 const categoriesMapper =
-  (accumulated: MappedCategories) => (standaloneOrCategory: RawIndex) => {
+  (accumulated: MappedCategories) => (standaloneOrCategory: RawIndexContent) => {
     return match(standaloneOrCategory)
       .returnType<Standalone | Category>()
       .with(
@@ -73,6 +73,6 @@ const categoriesMapper =
   };
 
 export const getOrderedCategories =
-  (index: RawIndex[]) => (accumulated: MappedCategories) => {
+  (index: RawIndex["contents"]) => (accumulated: MappedCategories) => {
     return pipe(index, map(categoriesMapper(accumulated)), toArray);
   };

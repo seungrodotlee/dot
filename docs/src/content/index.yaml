@@ -1,7 +1,12 @@
 index:
-  - standalone: Geul.js
-  - category: React
-    pages:
-      - useGeul
-      - useDynamicGeul
-      - useGeulPipe
+  - lib: geul-js
+    contents:
+      - standalone: Geul.js
+      - category: React
+        pages:
+          - useGeul
+          - useDynamicGeul
+          - useGeulPipe
+  - lib: overeact
+    contents:
+      - standalone: Overeact

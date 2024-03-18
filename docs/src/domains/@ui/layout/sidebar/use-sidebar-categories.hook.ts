@@ -1,19 +1,23 @@
 import { useMemo } from "react";
 
-import { pipe, reduce } from "@fxts/core";
+import { find, pipe, reduce } from "@fxts/core";
 
 import { ContentsIndexQuery, ContentsQuery, MappedCategories, RawContent } from "./sidebar.types";
 import { categoriesAccumulator, getOrderedCategories } from "./sidebar.utils";
 
-export const useSidebarCategories = (data: ContentsIndexQuery & ContentsQuery) => {
+export const useSidebarCategories = (data: ContentsIndexQuery & ContentsQuery, lib: string | null) => {
   return useMemo(() => {
+    console.log("lib", lib);
+
+    if(!lib) return;
+
     return pipe(
       reduce<RawContent, MappedCategories>(
         categoriesAccumulator,
         {},
         data.allMdx.nodes,
       ),
-      getOrderedCategories(data.allYaml.edges[0].node.index),
+      getOrderedCategories(find(({ lib: _lib }) => _lib === lib, data.allYaml.edges[0].node.index)!.contents),
     );
-  }, [data]);
+  }, [data, lib]);
 }
