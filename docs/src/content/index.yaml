@@ -10,3 +10,6 @@ index:
   - lib: overeact
     contents:
       - standalone: Overeact
+      - category: Slots
+        pages:
+          - withSlots

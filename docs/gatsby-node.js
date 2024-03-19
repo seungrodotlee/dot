@@ -48,6 +48,10 @@ exports.onCreateWebpackConfig = ({ actions }) => {
           __dirname,
           "../packages/geul.js/react/src/index.ts",
         ),
+        "@d0t/overeact": path.resolve(
+          __dirname,
+          "../packages/overeact/src/index.ts",
+        ),
       },
     },
   });
