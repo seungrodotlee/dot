@@ -8,6 +8,9 @@ import type { GatsbyConfig } from "gatsby";
 dotenv.config();
 
 const config: GatsbyConfig = {
+  flags: {
+		DEV_SSR: true,
+	},
   pathPrefix: "/dot",
   siteMetadata: {
     title: `Geul.js`,

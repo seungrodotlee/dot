@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { FaBars, FaGithub } from "react-icons/fa";
 import { DocSearch } from "@docsearch/react";
@@ -13,6 +13,11 @@ import { StyledHeader } from "./header.styles";
 import OvereactLabel from "../labels/overeact-label/overeact-label.component";
 
 const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
+  const [loaded, setLoaded] = useState<boolean>();
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   const { withoutSidebar } = useContext(LayoutContext);
   const label = useMemo(
     () =>
@@ -30,12 +35,11 @@ const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
             </button>
           )}
           <div>
-            {match(label)
-              .with("geul-js", () => <GeulLabel />)
-              .with("overeact", () => <OvereactLabel />)
-              .otherwise(() => (
-                <Logo />
-              ))}
+            {loaded &&
+              match(label)
+                .with("geul-js", () => <GeulLabel />)
+                .with("overeact", () => <OvereactLabel />)
+                .otherwise(() => <Logo />)}
           </div>
         </StyledHeader.Left>
         <StyledHeader.Right>

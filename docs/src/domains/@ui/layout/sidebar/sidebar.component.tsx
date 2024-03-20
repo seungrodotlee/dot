@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { graphql, navigate, useStaticQuery } from "gatsby";
 import { P, match } from "ts-pattern";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaDove } from "react-icons/fa";
 
 import { isWindow, refineProps } from "../../../../utils";
 import Collapsible from "../../utils/molecule/collapsible/collapsible.component";
@@ -17,6 +17,11 @@ import {
 } from "docs/src/types/queries.types";
 
 const Sidebar = ({ onClose, ...props }: SidebarProps) => {
+  const [loaded, setLoaded] = useState<boolean>();
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   const prefix = useMemo(
     () =>
       isWindow() ? location.pathname.replace("/dot", "").split("/")[1] : null,
@@ -72,48 +77,49 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
           </button>
         </StyledSidebar.LogoWrap>
         <div>
-          {categories?.map((standaloneOrCategory) =>
-            match(standaloneOrCategory)
-              .with(P.instanceOf(Standalone), ({ standalone }) => (
-                <StyledSidebar.Menu key={standalone.title}>
-                  <StyledSidebar.DotWrap>
-                    <StyledSidebar.Dot />
-                  </StyledSidebar.DotWrap>
-                  <StyledSidebar.Link
-                    active={standalone.slug === current}
-                    onClick={() =>
-                      navigate(
-                        `${standalone.slug}/${isWindow() ? location.search : ""}`,
-                      )
-                    }
-                  >
-                    {standalone.title}
-                  </StyledSidebar.Link>
-                </StyledSidebar.Menu>
-              ))
-              .otherwise(({ category, pages }) => (
-                <div key={category}>
-                  <Collapsible>
-                    <Collapsible.Header>{category}</Collapsible.Header>
-                    <Collapsible.Details>
-                      {pages.map(({ id, title, slug }) => (
-                        <StyledSidebar.Link
-                          key={id}
-                          active={slug === current}
-                          onClick={() =>
-                            navigate(
-                              `${slug}/${isWindow() ? location.search : ""}`,
-                            )
-                          }
-                        >
-                          {title}
-                        </StyledSidebar.Link>
-                      ))}
-                    </Collapsible.Details>
-                  </Collapsible>
-                </div>
-              )),
-          )}
+          {loaded &&
+            categories?.map((standaloneOrCategory) =>
+              match(standaloneOrCategory)
+                .with(P.instanceOf(Standalone), ({ standalone }) => (
+                  <StyledSidebar.Menu key={standalone.title}>
+                    <StyledSidebar.DotWrap>
+                      <StyledSidebar.Dot />
+                    </StyledSidebar.DotWrap>
+                    <StyledSidebar.Link
+                      active={standalone.slug === current}
+                      onClick={() =>
+                        navigate(
+                          `${standalone.slug}/${isWindow() ? location.search : ""}`,
+                        )
+                      }
+                    >
+                      {standalone.title}
+                    </StyledSidebar.Link>
+                  </StyledSidebar.Menu>
+                ))
+                .otherwise(({ category, pages }) => (
+                  <div key={category}>
+                    <Collapsible>
+                      <Collapsible.Header>{category}</Collapsible.Header>
+                      <Collapsible.Details>
+                        {pages.map(({ id, title, slug }) => (
+                          <StyledSidebar.Link
+                            key={id}
+                            active={slug === current}
+                            onClick={() =>
+                              navigate(
+                                `${slug}/${isWindow() ? location.search : ""}`,
+                              )
+                            }
+                          >
+                            {title}
+                          </StyledSidebar.Link>
+                        ))}
+                      </Collapsible.Details>
+                    </Collapsible>
+                  </div>
+                )),
+            )}
         </div>
       </StyledSidebar.Body>
     </StyledSidebar.Root>
