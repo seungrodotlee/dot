@@ -1,11 +1,8 @@
 import { JSXElementConstructor, ReactElement, ReactNode } from "react";
 
-import { useSlots } from "../use-slots/use-slots.hook";
 import { reduceComponentSlots } from "../internal/reduce-component-slots.util";
-
-type ToPascalCase<T> = T extends `${infer First}${infer Rest}`
-  ? `${Uppercase<First>}${Rest}`
-  : T;
+import { ToPascalCase } from "../internal/slots.types";
+import { useSlots } from "../use-slots/use-slots.hook";
 
 export const withSlots = <
   Comp extends (props: any) => ReactElement,
@@ -16,20 +13,20 @@ export const withSlots = <
   >,
 >(
   Component: Comp,
-  slots: SlotConstructors,
+  slotConstructors: SlotConstructors,
 ) => {
   const _ComponentWithSlot = ({
     children,
     ...props
   }: Omit<Props, "slots"> & Record<"children", ReactNode>) => {
-    const slotElements = useSlots(children, slots);
+    const slotElements = useSlots(children, slotConstructors);
 
     return <Component {...(props as any)} slots={slotElements} />;
   };
 
   const ComponentWithSlot = Object.assign(
     _ComponentWithSlot,
-    reduceComponentSlots(slots),
+    reduceComponentSlots(slotConstructors),
   );
 
   return ComponentWithSlot;

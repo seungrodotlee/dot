@@ -9,16 +9,15 @@ import Collapsible from "../../utils/molecule/collapsible/collapsible.component"
 import Logo from "../logo/logo.component";
 
 import StyledSidebar from "./sidebar.styles";
+import { SidebarProps, Standalone } from "./sidebar.types";
+import { useSidebarCategories } from "./use-sidebar-categories.hook";
 import {
   ContentsIndexQuery,
   ContentsQuery,
-  SidebarProps,
-  Standalone,
-} from "./sidebar.types";
-import { useSidebarCategories } from "./use-sidebar-categories.hook";
+} from "docs/src/types/queries.types";
 
 const Sidebar = ({ onClose, ...props }: SidebarProps) => {
-  const lib = useMemo(
+  const prefix = useMemo(
     () => (isWindow() ? location.pathname.split("/")[1] : null),
     [],
   );
@@ -29,7 +28,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
         edges {
           node {
             index {
-              lib
+              prefix
               contents {
                 standalone
                 category
@@ -52,7 +51,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
     }
   `);
 
-  const categories = useSidebarCategories(data, lib);
+  const categories = useSidebarCategories(data, prefix);
 
   const current = useMemo(
     () => (isWindow() ? location.pathname.replace(/\/$/, "") : null),

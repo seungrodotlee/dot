@@ -8,9 +8,92 @@ import WithSlotsExample from "../../../../domains/examples/with-slots.example.co
 
 # withSlots
 
+`withSlots` is HOC that create a component with slots easily.
+
+```tsx
+function withSlots<
+  Comp extends (props: any) => ReactElement,
+  Props extends Parameters<Comp>[0],
+  SlotConstructors extends Record<
+    ToPascalCase<Exclude<keyof Props["slots"], "defaultChildren">>,
+    keyof JSX.IntrinsicElements | JSXElementConstructor<any>
+  >,
+>(
+  Component: Comp,
+  slotConstructors: SlotConstructors,
+): (
+  props: Omit<Props, "slots"> & {
+    children: ReactNode;
+  },
+) => ReactElement;
+```
+
+## `Component`
+
+Target component to apply slots.
+
+## `slotConstructors`
+
+Object where 'key' represents the name of each slot,
+and 'value' represents the define of the component
+to be passed to each slot.
+
+## `return`
+
+A new component created through the delivered component,
+which receives 'children', not 'slots' which original one receives.
+
 ## Examples
 
-<WithSlotsExample>
+### Codes
+
+```tsx
+// with-slots.example.component.tsx
+import { SlotsProp, withSlots } from "@d0t/overeact";
+
+const ChildA = () => {
+  return <div>child A</div>;
+};
+
+const ChildB = () => {
+  return <div>child B</div>;
+};
+
+const WithSlotsExample = ({
+  slots: { childA, childB, defaultChildren },
+}: SlotsProp<"childA" | "childB">) => {
+  return (
+    <div>
+      {childA}
+      {defaultChildren}
+      {childB}
+    </div>
+  );
+};
+
+export default withSlots(WithSlotsExample, {
+  ChildA,
+  ChildB,
+});
+```
+
+```tsx
+// page.tsx
+const Page = () => {
+  return (
+    <WithSlotsExample>
+      <WithSlotsExample.ChildA />
+      <WithSlotsExample.ChildB />
+      <div>I'm default child 1</div>
+      <p>I'm default child 2</p>
+    </WithSlotsExample>
+  );
+};
+```
+
+### Result
+
+<WithSlotsExample className="slots-example-root">
   <WithSlotsExample.ChildA />
   <WithSlotsExample.ChildB />
   <div>I'm default child 1</div>

@@ -1,3 +1,5 @@
 import { ReactNode } from "react";
 
-export type Slots<S extends string> = Record<S, ReactNode> & Record<"defaultChildren", ReactNode[]>;
+export type SlotsProp<S extends string> = {
+  slots: Record<S, ReactNode> & Record<"defaultChildren", ReactNode[]>
+};

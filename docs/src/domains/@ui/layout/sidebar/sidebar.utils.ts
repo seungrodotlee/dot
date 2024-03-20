@@ -1,7 +1,9 @@
 import { map, pipe, prepend, split, toArray } from "@fxts/core";
 import { P, match } from "ts-pattern";
 
-import { Category, MappedCategories, RawContent, RawIndex, RawIndexContent, Standalone } from "./sidebar.types";
+import { RawContent, RawIndex, RawIndexContent } from "../../../../types/queries.types";
+
+import { Category, MappedCategories, Standalone } from "./sidebar.types";
 
 const splitIfSlashIncluded = (title: string) => {
   return match(title)

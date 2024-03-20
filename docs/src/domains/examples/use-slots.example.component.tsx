@@ -1,4 +1,6 @@
-import { SlotsProp, withSlots } from "@d0t/overeact";
+import { ComponentProps } from "react";
+
+import { useSlots } from "@d0t/overeact";
 import { css } from "@emotion/react";
 
 const slotsExampleCSS = css({
@@ -11,37 +13,32 @@ const slotsExampleCSS = css({
     marginBottom: "1rem !important",
     borderRadius: "4px",
   },
+  "> h1": {
+    backgroundColor: "#1d5092",
+  },
 });
 
 const childACSS = css({
   backgroundColor: "#92731d !important",
 });
 
-const childBCSS = css({
-  backgroundColor: "#1d5092 !important",
-});
-
-const ChildA = () => {
+export const ChildA = () => {
   return <div css={childACSS}>child A</div>;
 };
 
-const ChildB = () => {
-  return <div css={childBCSS}>child B</div>;
-};
+const UseSlotsExample = ({ children, ...props }: ComponentProps<"div">) => {
+  const { title, childA, defaultChildren } = useSlots(children, {
+    title: "h1",
+    childA: ChildA,
+  });
 
-const WithSlotsExample = ({
-  slots: { childA, childB, defaultChildren },
-}: SlotsProp<"childA" | "childB">) => {
   return (
-    <div css={slotsExampleCSS}>
+    <div css={slotsExampleCSS} {...props}>
+      {title}
       {childA}
       {defaultChildren}
-      {childB}
     </div>
   );
 };
 
-export default withSlots(WithSlotsExample, {
-  ChildA,
-  ChildB,
-});
+export default UseSlotsExample;

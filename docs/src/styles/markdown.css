@@ -619,6 +619,10 @@
   margin-bottom: 0;
 }
 
+.doc li {
+  list-style: outside;
+}
+
 .doc li > p {
   margin-top: 16px;
 }

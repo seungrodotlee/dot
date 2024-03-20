@@ -2,14 +2,14 @@ import { useMemo } from "react";
 
 import { find, pipe, reduce } from "@fxts/core";
 
-import { ContentsIndexQuery, ContentsQuery, MappedCategories, RawContent } from "./sidebar.types";
+import { ContentsIndexQuery, ContentsQuery, RawContent } from "../../../../types/queries.types";
+
+import { MappedCategories } from "./sidebar.types";
 import { categoriesAccumulator, getOrderedCategories } from "./sidebar.utils";
 
-export const useSidebarCategories = (data: ContentsIndexQuery & ContentsQuery, lib: string | null) => {
+export const useSidebarCategories = (data: ContentsIndexQuery & ContentsQuery, prefix: string | null) => {
   return useMemo(() => {
-    console.log("lib", lib);
-
-    if(!lib) return;
+    if(!prefix) return;
 
     return pipe(
       reduce<RawContent, MappedCategories>(
@@ -17,7 +17,7 @@ export const useSidebarCategories = (data: ContentsIndexQuery & ContentsQuery, l
         {},
         data.allMdx.nodes,
       ),
-      getOrderedCategories(find(({ lib: _lib }) => _lib === lib, data.allYaml.edges[0].node.index)!.contents),
+      getOrderedCategories(find(({ prefix: _prefix }) => _prefix === prefix, data.allYaml.edges[0].node.index)!.contents),
     );
-  }, [data, lib]);
+  }, [data, prefix]);
 }

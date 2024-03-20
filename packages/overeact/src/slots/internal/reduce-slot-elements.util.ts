@@ -4,7 +4,7 @@ import { reduce } from "@fxts/core"
 import { P, match } from "ts-pattern"
 
 import { isSlottedElement } from "./is-slotted-element.util"
-import { ElementType, TypesToSlots } from "./slots.types"
+import { ElementType, SlotElements } from "./slots.types"
 
 export const reduceSlotElements = <T>(typeAndKeyMap: Map<ElementType, string>) => (children: ReactNode) => {
   return reduce(
@@ -18,7 +18,7 @@ export const reduceSlotElements = <T>(typeAndKeyMap: Map<ElementType, string>) =
           ...result,
           defaultChildren: [...(result.defaultChildren ?? []), child]
         })), 
-    {} as TypesToSlots<T>, 
+    {} as SlotElements<T>, 
     children as any[]
   )
 }
