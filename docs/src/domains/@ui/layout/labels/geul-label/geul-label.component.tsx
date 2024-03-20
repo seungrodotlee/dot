@@ -1,6 +1,6 @@
 import { ComponentPropsWith, useEffect, useRef } from "react";
 
-import { useDynamicGeul } from "@dot/geul-react";
+import { useDynamicGeul } from "@d0t/geul-react";
 
 import { refineProps } from "../../../../../utils";
 

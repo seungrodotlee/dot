@@ -44,7 +44,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
-        "@dot/geul-react": path.resolve(
+        "@d0t/geul-react": path.resolve(
           __dirname,
           "../packages/geul.js/react/src/index.ts",
         ),

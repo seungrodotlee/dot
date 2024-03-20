@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useCallback, useState } from "react";
 
-import { UseDynamicGeulOptions, useDynamicGeul } from "@dot/geul-react";
+import { UseDynamicGeulOptions, useDynamicGeul } from "@d0t/geul-react";
 
 const UseDynamicGeulExample = ({
   from,

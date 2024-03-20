@@ -1,4 +1,4 @@
-import { UseGeulPipeOptions, useGeulPipe } from "@dot/geul-react";
+import { UseGeulPipeOptions, useGeulPipe } from "@d0t/geul-react";
 
 const UseGeulPipeExample = ({
   from,
