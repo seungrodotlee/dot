@@ -12,6 +12,7 @@ const Sidebar_Body = styled.div(
 
 const Sidebar_LogoWrap = styled.div({
     ...tw`h-9 flex items-center justify-between mb-8`,
+    "a": tw`mr-20`,
     "button": tw`text-xl`
 });
 
