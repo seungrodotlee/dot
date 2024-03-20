@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { UseGeulOptions, useGeul } from "@dot/geul-react";
+import { UseGeulOptions, useGeul } from "@d0t/geul-react";
 
 const UseGeulExample = ({
   from,

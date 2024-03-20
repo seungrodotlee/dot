@@ -17,7 +17,7 @@
 Install via Package Manager
 
 ```sh
-npm i @dot/react-geul
+npm i @d0t/react-geul
 ```
 
 # Quick Start
@@ -26,7 +26,7 @@ Explore how to use `Geul.js` [here](https://seungrodotlee.github.io/dot/geul-js/
 
 # Usage
 
-You can use `Geul.js` by import `@dot/react-geul` package and just simply call hooks. `@dot/react-geul` provides three types of hooks.
+You can use `Geul.js` by import `@d0t/react-geul` package and just simply call hooks. `@d0t/react-geul` provides three types of hooks.
 
 - `useGeul`
 - `useDynamicGeul`
@@ -34,6 +34,6 @@ You can use `Geul.js` by import `@dot/react-geul` package and just simply call h
 
 # Geul.js for other frameworks (eg. `Vue.js`, `Svelte`)
 
-`Geul.js` have plan to support `Vue.js` and `Svelde`, and other frameworks,
+`Geul.js` have plan to support `Vue.js` and `Svelte`, and other frameworks,
 but not in the process of developing it yet.
 I will work on it quickly and release it soon.

@@ -10,7 +10,7 @@ import {
 import "twin.macro";
 
 import { Link, type HeadFC, useStaticQuery, graphql } from "gatsby";
-import { useDynamicGeul } from "@dot/geul-react";
+import { useDynamicGeul } from "@d0t/geul-react";
 import { delay } from "@fxts/core";
 
 import Layout from "../domains/@ui/layout/layout.component";

@@ -1,7 +1,14 @@
-# overeact
+# Make your React DX better with 'Overeact'
 
-This library was generated with [Nx](https://nx.dev).
+`Overeact` is library that provides attractive functions
+that can be used while developing `React.js` apps.
 
-## Running unit tests
+# Install Overeact
 
-Run `nx test overeact` to execute the unit tests via [Vitest](https://vitest.dev/).
+```sh
+npm i @d0t/overeact
+```
+
+# Usage
+
+Explore [document](https://seungrodotlee.github.io/dot/overeact/) to learn more about `Overeact`.

@@ -4,9 +4,10 @@
 
 ## Packages
 
-| name                                       | description                                                                 |
-| ------------------------------------------ | --------------------------------------------------------------------------- |
-| [Geul.js/react](./packages/geul.js/react/) | library designed to easily implement the typing effect of Korean characters |
+| name                                       | description                                                                                  |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| [Geul.js/react](./packages/geul.js/react/) | library designed to easily implement the typing effect of Korean characters                  |
+| [Overeact](./packages/overeact/)           | library that provides attractive functions that can be used while developing `React.js` apps |
 
 ## Documentation
 
