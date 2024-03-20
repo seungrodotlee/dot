@@ -1,7 +1,18 @@
 index:
-  - standalone: Geul.js
-  - category: React
-    pages:
-      - useGeul
-      - useDynamicGeul
-      - useGeulPipe
+  - title: Geul.js
+    prefix: geul-js
+    contents:
+      - standalone: Geul.js
+      - category: React
+        pages:
+          - useGeul
+          - useDynamicGeul
+          - useGeulPipe
+  - title: Overeact
+    prefix: overeact
+    contents:
+      - standalone: Overeact
+      - category: Slots
+        pages:
+          - withSlots
+          - useSlots

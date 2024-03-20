@@ -10,6 +10,7 @@ import { LayoutContext } from "../layout.context";
 import GeulLabel from "../labels/geul-label/geul-label.component";
 
 import { StyledHeader } from "./header.styles";
+import OvereactLabel from "../labels/overeact-label/overeact-label.component";
 
 const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
   const { withoutSidebar } = useContext(LayoutContext);
@@ -31,6 +32,7 @@ const Header = ({ onMenuClick }: Record<"onMenuClick", () => void>) => {
           <div>
             {match(label)
               .with("geul-js", () => <GeulLabel />)
+              .with("overeact", () => <OvereactLabel />)
               .otherwise(() => (
                 <Logo />
               ))}

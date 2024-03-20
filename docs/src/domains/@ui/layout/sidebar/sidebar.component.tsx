@@ -9,24 +9,31 @@ import Collapsible from "../../utils/molecule/collapsible/collapsible.component"
 import Logo from "../logo/logo.component";
 
 import StyledSidebar from "./sidebar.styles";
+import { SidebarProps, Standalone } from "./sidebar.types";
+import { useSidebarCategories } from "./use-sidebar-categories.hook";
 import {
   ContentsIndexQuery,
   ContentsQuery,
-  SidebarProps,
-  Standalone,
-} from "./sidebar.types";
-import { useSidebarCategories } from "./use-sidebar-categories.hook";
+} from "docs/src/types/queries.types";
 
 const Sidebar = ({ onClose, ...props }: SidebarProps) => {
+  const prefix = useMemo(
+    () => (isWindow() ? location.pathname.split("/")[1] : null),
+    [],
+  );
+
   const data = useStaticQuery<ContentsIndexQuery & ContentsQuery>(graphql`
     query {
       allYaml {
         edges {
           node {
             index {
-              standalone
-              category
-              pages
+              prefix
+              contents {
+                standalone
+                category
+                pages
+              }
             }
           }
         }
@@ -44,7 +51,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
     }
   `);
 
-  const categories = useSidebarCategories(data);
+  const categories = useSidebarCategories(data, prefix);
 
   const current = useMemo(
     () => (isWindow() ? location.pathname.replace(/\/$/, "") : null),
@@ -61,7 +68,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
           </button>
         </StyledSidebar.LogoWrap>
         <div>
-          {categories.map((standaloneOrCategory) =>
+          {categories?.map((standaloneOrCategory) =>
             match(standaloneOrCategory)
               .with(P.instanceOf(Standalone), ({ standalone }) => (
                 <StyledSidebar.Menu key={standalone.title}>

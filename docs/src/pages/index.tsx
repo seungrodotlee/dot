@@ -9,14 +9,30 @@ import {
 
 import "twin.macro";
 
-import { Link, type HeadFC } from "gatsby";
+import { Link, type HeadFC, useStaticQuery, graphql } from "gatsby";
 import { useDynamicGeul } from "@dot/geul-react";
 import { delay } from "@fxts/core";
 
 import Layout from "../domains/@ui/layout/layout.component";
 import { StyledIndex } from "../styles/pages.styles";
+import { ContentsIndexQuery } from "../types/queries.types";
 
 const IndexPage = () => {
+  const data = useStaticQuery<ContentsIndexQuery>(graphql`
+    query {
+      allYaml {
+        edges {
+          node {
+            index {
+              title
+              prefix
+            }
+          }
+        }
+      }
+    }
+  `);
+
   const {
     geul: ing,
     isRunning: isIngRunning,
@@ -133,7 +149,9 @@ const IndexPage = () => {
             우측에서 알아보고자 하는 기술스택을 선택해 탐색해보세요!
           </StyledIndex.Content>
           <StyledIndex.Links>
-            <Link to="/geul-js">Geul.js</Link>
+            {data.allYaml.edges[0].node.index.map(({ title, prefix }) => (
+              <Link to={`/${prefix}`}>{title}</Link>
+            ))}
           </StyledIndex.Links>
         </StyledIndex.ContentWrap>
       </StyledIndex.Root>

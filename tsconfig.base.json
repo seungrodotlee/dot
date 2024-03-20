@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dot/geul-react": ["packages/geul.js/react/src/index.ts"]
+      "@d0t/overeact": ["packages/overeact/src/index.ts"],
+      "@dot/geul-react": ["packages/geul.js/react/src/index.ts"],
+      "utilitype": ["packages/utilitype/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
