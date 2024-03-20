@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, navigate, useStaticQuery } from "gatsby";
 import { P, match } from "ts-pattern";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -18,7 +18,8 @@ import {
 
 const Sidebar = ({ onClose, ...props }: SidebarProps) => {
   const prefix = useMemo(
-    () => (isWindow() ? location.pathname.split("/")[1] : null),
+    () =>
+      isWindow() ? location.pathname.replace("/dot", "").split("/")[1] : null,
     [],
   );
 
@@ -54,7 +55,10 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
   const categories = useSidebarCategories(data, prefix);
 
   const current = useMemo(
-    () => (isWindow() ? location.pathname.replace(/\/$/, "") : null),
+    () =>
+      isWindow()
+        ? location.pathname.replace("/dot", "").replace(/\/$/, "")
+        : null,
     [],
   );
 
@@ -77,7 +81,11 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
                   </StyledSidebar.DotWrap>
                   <StyledSidebar.Link
                     active={standalone.slug === current}
-                    to={`${standalone.slug}/${isWindow() ? location.search : ""}`}
+                    onClick={() =>
+                      navigate(
+                        `${standalone.slug}/${isWindow() ? location.search : ""}`,
+                      )
+                    }
                   >
                     {standalone.title}
                   </StyledSidebar.Link>
@@ -92,7 +100,11 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
                         <StyledSidebar.Link
                           key={id}
                           active={slug === current}
-                          to={`${slug}/${isWindow() ? location.search : ""}`}
+                          onClick={() =>
+                            navigate(
+                              `${slug}/${isWindow() ? location.search : ""}`,
+                            )
+                          }
                         >
                           {title}
                         </StyledSidebar.Link>

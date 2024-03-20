@@ -17,7 +17,7 @@ const Sidebar_LogoWrap = styled.div({
 
 const Sidebar_Menu = styled.div(tw`flex`);
 
-const Sidebar_Link = styled(Link, {
+const Sidebar_Link = styled("button", {
   shouldForwardProp: prop => isPropValid(prop)
 })<{ active?: boolean }>(({ active }) => ({
   ...tw`flex items-center`,

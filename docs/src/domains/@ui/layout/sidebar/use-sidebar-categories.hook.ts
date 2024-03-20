@@ -17,7 +17,7 @@ export const useSidebarCategories = (data: ContentsIndexQuery & ContentsQuery, p
         {},
         data.allMdx.nodes,
       ),
-      getOrderedCategories(find(({ prefix: _prefix }) => _prefix === prefix, data.allYaml.edges[0].node.index)!.contents),
+      getOrderedCategories(find(({ prefix: _prefix }) => _prefix === prefix, data.allYaml.edges[0].node.index)?.contents ?? []),
     );
   }, [data, prefix]);
 }
