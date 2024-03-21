@@ -1,0 +1,2 @@
+import { ComponentProps, JSXElementConstructor } from "react";
+export declare const reduceComponentSlots: <SlotConstructors extends Record<string, JSXElementConstructor<any> | keyof JSX.IntrinsicElements>>(slots: SlotConstructors) => { [Key in keyof SlotConstructors]: SlotConstructors[Key] extends JSXElementConstructor<any> ? SlotConstructors[Key] : JSXElementConstructor<ComponentProps<SlotConstructors[Key]>>; };

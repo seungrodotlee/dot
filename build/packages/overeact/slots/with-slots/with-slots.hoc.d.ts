@@ -1,0 +1,3 @@
+import { JSXElementConstructor, ReactElement, ReactNode } from "react";
+import { ToPascalCase } from "../internal/slots.types";
+export declare const withSlots: <Comp extends (props: any) => ReactElement, Props extends Parameters<Comp>[0], SlotConstructors extends Record<ToPascalCase<Exclude<keyof Props["slots"], "defaultChildren">>, JSXElementConstructor<any> | keyof JSX.IntrinsicElements>>(Component: Comp, slotConstructors: SlotConstructors) => (({ children, ...props }: Omit<Props, "slots"> & Record<"children", ReactNode>) => import("react/jsx-runtime").JSX.Element) & { [Key in keyof SlotConstructors]: SlotConstructors[Key] extends JSXElementConstructor<any> ? SlotConstructors[Key] : JSXElementConstructor<import("react").ComponentProps<SlotConstructors[Key]>>; };

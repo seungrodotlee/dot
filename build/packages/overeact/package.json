@@ -1,0 +1,22 @@
+{
+  "name": "@d0t/overeact",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seungrodotlee/dot/tree/main/packages/overeact"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react.js",
+    "slot"
+  ],
+  "homepage": "https://seungrodotlee.github.io/dot/overeact/",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  }
+}
