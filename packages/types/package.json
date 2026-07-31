@@ -1,0 +1,27 @@
+{
+  "name": "@repo/types",
+  "type": "module",
+  "scripts": {
+    "build": "tsdown",
+    "oxlint": "oxlint",
+    "oxfmt": "oxfmt"
+  },
+  "devDependencies": {
+    "@repo/oxc-config": "workspace:*",
+    "@types/node": "^20",
+    "oxfmt": "catalog:oxc",
+    "oxlint": "catalog:oxc",
+    "tsdown": "catalog:tsdown",
+    "typescript": "catalog:typescript7"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.mjs",
+      "./package.json": "./package.json"
+    }
+  }
+}
