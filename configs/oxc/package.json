@@ -1,0 +1,16 @@
+{
+  "name": "@repo/oxc-config",
+  "files": [
+    "lint.base.json",
+    "fmt.base.json"
+  ],
+  "type": "module",
+  "scripts": {
+    "oxlint": "oxlint",
+    "oxfmt": "oxfmt"
+  },
+  "devDependencies": {
+    "oxfmt": "catalog:oxc",
+    "oxlint": "catalog:oxc"
+  }
+}
