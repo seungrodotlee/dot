@@ -1,3 +1,5 @@
+import { isNil } from "@repo/utils";
+
 export type ErrorCase<
   Key extends string = string,
   Extra extends Record<string, unknown> = Record<string, unknown>,
@@ -6,9 +8,18 @@ export type ErrorCase<
   extra: Extra;
 };
 
+export function errorCase<Key extends string = string>(key: Key): ErrorCase<Key>;
 export function errorCase<
   Key extends string = string,
   Extra extends Record<string, unknown> = Record<string, unknown>,
->(key: Key, extra: Extra) {
+>(key: Key, extra: Extra): ErrorCase<Key, Extra>;
+export function errorCase<
+  Key extends string = string,
+  Extra extends Record<string, unknown> = Record<string, unknown>,
+>(key: Key, extra?: Extra) {
+  if (isNil(extra)) {
+    return { key };
+  }
+
   return { key, extra };
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/result",
+  "name": "@repo/bdd",
   "type": "module",
   "scripts": {
     "build": "tsdown",
@@ -7,8 +7,12 @@
     "oxfmt": "oxfmt"
   },
   "dependencies": {
+    "@cucumber/gherkin": "catalog:",
+    "@cucumber/messages": "catalog:",
     "@repo/types": "workspace:*",
-    "@repo/utils": "workspace:*"
+    "@repo/utils": "workspace:*",
+    "@repo/brand": "workspace:*",
+    "@repo/result": "workspace:*"
   },
   "devDependencies": {
     "@repo/oxc-config": "workspace:*",
